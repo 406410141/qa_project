@@ -1,0 +1,14 @@
+# Python 虛擬環境與暫存檔
+**/venv/
+**/.venv/
+**/__pycache__/
+**/*.pyc
+
+# 測試報告
+**/report.html
+**/.pytest_cache/
+**/allure-results/
+**/allure-report/
+
+# 系統檔案
+.DS_Store
