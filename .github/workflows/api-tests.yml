@@ -41,3 +41,10 @@ jobs:
         with:
           name: api-allure-report
           path: api-testing/allure-report
+
+      - name: Upload Allure Results (for debugging)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-allure-results
+          path: api-testing/allure-results
