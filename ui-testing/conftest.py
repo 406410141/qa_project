@@ -58,6 +58,12 @@ def driver():
         "profile.password_manager_enabled": False
     }
     chrome_options.add_experimental_option("prefs", prefs)
+    #CI
+    chrome_options.add_argument("--headless")                
+    chrome_options.add_argument("--no-sandbox")              
+    chrome_options.add_argument("--disable-dev-shm-usage")    
+    chrome_options.add_argument("--disable-gpu")              
+    chrome_options.add_argument("--window-size=1920,1080")
 
     # 禁用安全瀏覽的密碼保護功能並開啟無痕模式
     chrome_options.add_argument("--disable-features=SafeBrowsingPasswordProtection")
