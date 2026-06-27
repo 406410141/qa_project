@@ -1,7 +1,12 @@
 import pytest
+import allure
 from api_requests.booking_api import BookingAPI
 
-
+@allure.epic("API Testing Project")
+@allure.feature("API_UpdateBooking")
+@allure.story("Update Booking")
+@allure.tag("smoke")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_update_booking(base_url, session, created_booking, auth_token):
     booking_api = BookingAPI(base_url, session)
     target_id = created_booking["booking_id"]
@@ -35,7 +40,11 @@ def test_update_booking(base_url, session, created_booking, auth_token):
 
     assert data_get == data
 
-
+@allure.epic("API Testing Project")
+@allure.feature("API_UpdateBooking")
+@allure.story("Update Booking With Invalid Token")
+@allure.tag("negative")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_update_booking_with_invalid_token(base_url, session, created_booking):
     booking_api = BookingAPI(base_url, session)
 

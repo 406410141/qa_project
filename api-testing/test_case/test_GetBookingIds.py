@@ -1,9 +1,14 @@
 import pytest
+import allure
 from api_requests.booking_api import BookingAPI
 from api_requests.auth_api import AuthAPI
 from api_requests.base import BaseAPI
 
-
+@allure.epic("API Testing Project")
+@allure.feature("API_GetBookingIds")
+@allure.story("Get Booking Ids")
+@allure.tag("smoke")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_get_booking_ids(base_url, session):
     booking_api = BookingAPI(base_url, session)
     response = booking_api.get_booking_ids()
@@ -11,7 +16,11 @@ def test_get_booking_ids(base_url, session):
     booking_ids = response.json()
     assert isinstance(booking_ids, list)
 
-
+@allure.epic("API Testing Project")
+@allure.feature("API_GetBookingIds")
+@allure.story("Get Booking Ids With Name")
+@allure.tag("smoke")
+@allure.severity(allure.severity_level.NORMAL)
 def test_get_booking_ids_with_name(base_url, session, created_booking):
     booking_api = BookingAPI(base_url, session)
     target_id = created_booking["booking_id"]
@@ -32,7 +41,11 @@ def test_get_booking_ids_with_name(base_url, session, created_booking):
     assert isinstance(booking_ids, list)
     assert len(booking_ids) > 0
 
-
+@allure.epic("API Testing Project")
+@allure.feature("API_GetBookingIds")
+@allure.story("Get Booking Ids With Date Range")
+@allure.tag("smoke")
+@allure.severity(allure.severity_level.NORMAL)
 def test_get_booking_ids_by_date_range(base_url, session, created_booking):
     booking_api = BookingAPI(base_url, session)
     target_id = created_booking["booking_id"]

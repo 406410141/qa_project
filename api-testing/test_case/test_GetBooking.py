@@ -1,10 +1,15 @@
 import pytest
+import allure
 from api_requests.booking_api import BookingAPI
 from api_requests.auth_api import AuthAPI
 from api_requests.base import BaseAPI
 from data.get_booking_data import INVALID_GET_BOOKING_CASES
 
-
+@allure.epic("API Testing Project")
+@allure.feature("API_GetBooking")
+@allure.story("GetBooking")
+@allure.tag("smoke")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_get_booking(base_url, session, created_booking):
     booking_api = BookingAPI(base_url, session)
     target_id = created_booking["booking_id"]
@@ -22,13 +27,21 @@ def test_get_booking(base_url, session, created_booking):
     assert booking["bookingdates"]["checkin"] == created_booking["bookingdates"]["checkin"]
     assert booking["bookingdates"]["checkout"] == created_booking["bookingdates"]["checkout"]
 
-
+@allure.epic("API Testing Project")
+@allure.feature("API_GetBooking")
+@allure.story("Not Found")
+@allure.tag("negative")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_get_booking_not_found(base_url, session):
     booking_api = BookingAPI(base_url, session)
     response = booking_api.get_booking(99999)
     assert response.status_code == 404
 
-
+@allure.epic("API Testing Project")
+@allure.feature("API_GetBooking")
+@allure.story("Invalid Get Booking")
+@allure.tag("negative")
+@allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.parametrize("test_label, invalid_id, expected_status", INVALID_GET_BOOKING_CASES)
 def test_get_booking_invalid_inputs(base_url, session, test_label, invalid_id, expected_status):
     booking_api = BookingAPI(base_url, session)

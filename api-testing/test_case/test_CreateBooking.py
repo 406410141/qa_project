@@ -1,8 +1,13 @@
 import pytest
+import allure
 from api_requests.booking_api import BookingAPI
 from data.create_booking_data import INVALID_BOOKING_CASES
 
-
+@allure.epic("API Testing Project")
+@allure.feature("API_CreateBooking")
+@allure.story("Create Booking")
+@allure.tag("smoke")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_create_booking_success(base_url, session):
 
     booking_api = BookingAPI(base_url, session)
@@ -37,6 +42,12 @@ def test_create_booking_success(base_url, session):
     assert booking["bookingdates"]["checkout"] == booking_payload["bookingdates"]["checkout"]
 
 
+
+@allure.epic("API Testing Project")
+@allure.feature("API_CreateBooking")
+@allure.story("Invalid Booking Cases")
+@allure.tag("negative")
+@allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.parametrize("test_label, invalid_payload", INVALID_BOOKING_CASES)
 def test_create_booking_invalid_inputs(base_url, session, test_label, invalid_payload):
 

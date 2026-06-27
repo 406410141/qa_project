@@ -1,9 +1,14 @@
 import pytest
+import allure
 from api_requests.booking_api import BookingAPI
 from api_requests.auth_api import AuthAPI
 from api_requests.base import BaseAPI
 
-
+@allure.epic("API Testing Project")
+@allure.feature("API_DeleteBooking")
+@allure.story("Delete Booking")
+@allure.tag("smoke")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_delete_booking(base_url, session, auth_token):
     booking_api = BookingAPI(base_url, session)
     booking_payload = {
@@ -26,13 +31,21 @@ def test_delete_booking(base_url, session, auth_token):
     get_response = booking_api.get_booking(booking_id)
     assert get_response.status_code == 404
 
-
+@allure.epic("API Testing Project")
+@allure.feature("API_DeleteBooking")
+@allure.story("Delete Booking Not Found")
+@allure.tag("smoke")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_delete_booking_not_found(base_url, session, auth_token):
     booking_api = BookingAPI(base_url, session)
     delete_response = booking_api.delete_booking(99999, auth_token)
     assert delete_response.status_code == 405
 
-
+@allure.epic("API Testing Project")
+@allure.feature("API_DeleteBooking")
+@allure.story("Delete Booking Unauthorized")
+@allure.tag("smoke")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_delete_booking_unauthorized(base_url, session):
     booking_api = BookingAPI(base_url, session)
     booking_payload = {
