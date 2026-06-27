@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from pages.login_page import LoginPage
 
+
 @pytest.fixture(scope="session", autouse=True)
 def create_allure_environment_info(request):
     yield
@@ -17,6 +18,7 @@ def create_allure_environment_info(request):
             f.write("Browser=Chrome\n")
             f.write(f"Environment={'CI_Pipeline' if is_ci else 'Staging'}\n")
             f.write(f"Platform={'GitHub_Actions' if is_ci else 'macOS'}\n")
+
 
 def pytest_sessionfinish(session, exitstatus):
     results_dir = session.config.getoption('--alluredir')
@@ -31,6 +33,7 @@ def pytest_sessionfinish(session, exitstatus):
         with open(os.path.join(results_dir, 'executor.json'), 'w') as f:
             json.dump(executor_info, f)
 
+
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     outcome = yield
@@ -43,6 +46,7 @@ def pytest_runtest_makereport(item, call):
                 name="failure_screenshot",
                 attachment_type=allure.attachment_type.PNG
             )
+
 
 @pytest.fixture(scope="function")
 def driver():
@@ -79,6 +83,7 @@ def driver():
 
     yield driver
     driver.quit()
+
 
 @pytest.fixture(scope="function")
 def logged_in_driver(driver):

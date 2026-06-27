@@ -2,12 +2,10 @@ from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 
 
-
 class Cart(BasePage):
     CONTINUE_SHOP = (By.ID, 'continue-shopping')
     CHECKOUT = (By.ID, 'checkout')
     CART_TITLE = (By.XPATH, "//span[@data-test='title']")
-
 
     CART_ITEM_CONTAINER = (By.CLASS_NAME, "cart_item")
     ITEM_NAME = (By.CLASS_NAME, "inventory_item_name")

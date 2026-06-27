@@ -1,7 +1,7 @@
 import pytest
 import allure
 from pages.login_page import LoginPage
-#test_login.py
+# test_login.py
 
 EXPECTED_USERS = [
     "standard_user",
@@ -11,6 +11,8 @@ EXPECTED_USERS = [
     "error_user",
     "visual_user"
 ]
+
+
 @allure.epic("SauceDemo Project")
 @allure.feature("Login Info")
 @allure.story("Login Info")
@@ -23,7 +25,7 @@ def test_tc002(driver):
     print(f"\n[Debug] Locator: {locator}")
     users_text = login_page.find_element(locator).text
     print(f"[Debug] Block Text:\n{users_text}")
-    print("-" * 30) 
+    print("-" * 30)
     assert login_page.find_element(login_page.All_USERNAMES).is_displayed(), "Account No Show"
     assert login_page.find_element(login_page.All_PASSWORD).is_displayed(), "Password No show"
 
@@ -35,7 +37,6 @@ def test_tc002(driver):
     assert "secret_sauce" in pwd_text, f"No Expected -> : {pwd_text}"
 
 
-
 @allure.epic("SauceDemo Project")
 @allure.feature("Login Info")
 @allure.story("Close ERROR MSG")
@@ -45,10 +46,8 @@ def test_tc003(driver):
     login_page = LoginPage(driver)
     driver.get(login_page.URL)
 
-
     login_page.login(login_page.ACCEPTED_USERNAMES, login_page.ACCEPTED_PASSWORD)
     assert driver.current_url == "https://www.saucedemo.com/inventory.html", "Login failed or URL mismatch"
-
 
 
 @allure.epic("SauceDemo Project")
@@ -60,17 +59,11 @@ def test_tc004(driver):
     login_page = LoginPage(driver)
     driver.get(login_page.URL)
     login_page.click(login_page.LOGIN_BUTTON)
-    
 
     assert login_page.find_element(login_page.ERROR_REMIND).is_displayed(), "Error message not displayed"
     login_page.click(login_page.CLOSE_REMIND)
     try:
         visible = login_page.find_element(login_page.ERROR_REMIND).is_displayed()
-    except:
+    except Exception:
         visible = False
     assert visible == False, "Error message still displayed after closing"
-
-
-
-
-

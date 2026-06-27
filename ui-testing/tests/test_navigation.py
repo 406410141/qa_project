@@ -2,10 +2,10 @@ import pytest
 import allure
 from pages.login_page import LoginPage
 from pages.inventory import Inventory
-import time
 
-#test_navigation.py
+# test_navigation.py
 expected_menu_items = ['All Items', 'About', 'Logout', 'Reset App State']
+
 
 @allure.epic("SauceDemo Project")
 @allure.feature("Navigation Bar")
@@ -49,12 +49,11 @@ def test_tc006(driver):
     assert driver.current_url == "https://saucelabs.com/", "About link did not navigate to the correct URL"
 
 
-
 @allure.epic("SauceDemo Project")
 @allure.feature("Navigation Bar")
 @allure.story("Logout")
 @allure.severity(allure.severity_level.CRITICAL)
-@allure.tag("smoke","regression")
+@allure.tag("smoke", "regression")
 def test_tc007(driver):
     driver.get(LoginPage.URL)
     login_page = LoginPage(driver)

@@ -1,11 +1,12 @@
 
 from api_requests.base import BaseAPI
 
+
 class AuthAPI(BaseAPI):
     def __init__(self, base_url, session):
         super().__init__(base_url, session)
 
-    def create_token(self,username, password,):
+    def create_token(self, username, password,):
 
         endpoint = "/auth"
         headers = {

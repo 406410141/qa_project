@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
-from selenium.webdriver.common.by import By     
+from selenium.webdriver.common.by import By
+
 
 class CheckoutStepOne(BasePage):
     CHECKOUT_TITLE = (By.CLASS_NAME, "title")
@@ -12,7 +13,6 @@ class CheckoutStepOne(BasePage):
         self.fill(self.FIRST_NAME, first_name)
         self.fill(self.LAST_NAME, last_name)
         self.fill(self.ZIP_CODE, zip_code)
+
     def click_continue(self):
         self.click(self.CONTINUE_BTN)
-
-        

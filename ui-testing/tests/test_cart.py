@@ -3,6 +3,7 @@ import allure
 from pages.inventory import Inventory
 from pages.cart_page import Cart
 
+
 @allure.epic("SauceDemo Project")
 @allure.feature("Cart")
 @allure.story("Click Cart Btn")
@@ -20,6 +21,7 @@ def test_tc008(logged_in_driver):
 
     cart_page = Cart(logged_in_driver)
     assert cart_page.get_text(cart_page.CART_TITLE) == "Your Cart", "Wrong Title"
+
 
 @allure.epic("SauceDemo Project")
 @allure.feature("Cart")

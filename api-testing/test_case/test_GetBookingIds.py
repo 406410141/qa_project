@@ -1,8 +1,7 @@
-import  pytest
+import pytest
 from api_requests.booking_api import BookingAPI
 from api_requests.auth_api import AuthAPI
 from api_requests.base import BaseAPI
-
 
 
 def test_get_booking_ids(base_url, session):
@@ -13,14 +12,13 @@ def test_get_booking_ids(base_url, session):
     assert isinstance(booking_ids, list)
 
 
-
 def test_get_booking_ids_with_name(base_url, session, created_booking):
     booking_api = BookingAPI(base_url, session)
     target_id = created_booking["booking_id"]
     target_firstname = created_booking["firstname"]
     target_lastname = created_booking["lastname"]
     query_params = {
-        "firstname": target_firstname, 
+        "firstname": target_firstname,
         "lastname": target_lastname
     }
     response = booking_api.get_booking_ids(params=query_params)
@@ -33,7 +31,6 @@ def test_get_booking_ids_with_name(base_url, session, created_booking):
     print(f"Target Booking ID: {target_id}")
     assert isinstance(booking_ids, list)
     assert len(booking_ids) > 0
-
 
 
 def test_get_booking_ids_by_date_range(base_url, session, created_booking):
@@ -54,5 +51,3 @@ def test_get_booking_ids_by_date_range(base_url, session, created_booking):
     assert target_id in ids
     print(f"Booking IDs retrieved: {booking_ids}")
     print(f"Target Booking ID: {target_id}")
-
-

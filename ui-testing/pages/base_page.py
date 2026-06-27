@@ -9,7 +9,6 @@ class BasePage:
         self.driver = driver
         self.wait = WebDriverWait(driver, timeout)
 
-
     def wait_visible(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator))
 
@@ -22,14 +21,12 @@ class BasePage:
     def wait_invisible(self, locator):
         return self.wait.until(EC.invisibility_of_element_located(locator))
 
-
     def find_element(self, locator):
         return self.wait_visible(locator)
 
     def find_elements(self, locator):
         self.wait.until(EC.presence_of_all_elements_located(locator))
         return self.driver.find_elements(*locator)
-
 
     def click(self, locator):
         self.wait_clickable(locator).click()
@@ -52,7 +49,7 @@ class BasePage:
             return False
 
     def is_not_visible(self, locator) -> bool:
-            return not self.is_visible(locator)
+        return not self.is_visible(locator)
 
     def is_element_hidden(self, locator) -> bool:
         try:
@@ -60,4 +57,3 @@ class BasePage:
             return not element.is_displayed()
         except:
             return True
-

@@ -8,10 +8,12 @@ from api_requests.booking_api import BookingAPI
 def base_url():
     return "https://restful-booker.herokuapp.com"
 
+
 @pytest.fixture(scope="session")
 def session():
     with requests.Session() as s:
         yield s
+
 
 @pytest.fixture(scope="session")
 def auth_token(base_url, session):
@@ -44,14 +46,10 @@ def created_booking(base_url, session):
         "lastname": booking["lastname"],
         "totalprice": booking["totalprice"],
         "depositpaid": booking["depositpaid"],
-        "bookingdates": booking["bookingdates"],    
+        "bookingdates": booking["bookingdates"],
         "additionalneeds": booking["additionalneeds"],
         "checkin": bookingdates["checkin"],
         "checkout": bookingdates["checkout"]
 
 
     }
-
-
-
-
