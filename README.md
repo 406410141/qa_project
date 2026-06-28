@@ -72,6 +72,15 @@ qa_project/
 └── README.md
 ```
 
+```text
+## CI/CD Pipeline
+
+| Tool | Trigger | Description |
+|------|---------|-------------|
+| **GitHub Actions** | Push / Pull Request / Schedule | Execute API & UI tests and generate Allure report |
+| **Jenkins** | Manual Trigger | Parallel execution of API & UI tests with Allure report |
+```
+
 ## How To Run 
 
 ```bash
@@ -84,11 +93,4 @@ pytest --alluredir=allure-results
 allure serve allure-results
 ```
 
-```markdown
-## CI/CD Pipeline
 
-| Tool | Trigger | Description |
-|------|---------|-------------|
-| **GitHub Actions** | Push / Pull Request / Schedule | Execute API & UI tests and generate Allure report |
-| **Jenkins** | Manual Trigger | Parallel execution of API & UI tests with Allure report |
-```
