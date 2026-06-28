@@ -70,7 +70,7 @@ qa_project/
 ├── pytest.ini
 ├── Jenkinsfile                     # Jenkins Pipeline           
 └── README.md
-
+```
 
 ## How To Run 
 
@@ -91,3 +91,4 @@ allure serve allure-results
 |------|---------|-------------|
 | **GitHub Actions** | Push / Pull Request / Schedule | Execute API & UI tests and generate Allure report |
 | **Jenkins** | Manual Trigger | Parallel execution of API & UI tests with Allure report |
+```
