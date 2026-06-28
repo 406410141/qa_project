@@ -68,7 +68,7 @@ qa_project/
 │
 ├── requirements.txt   
 ├── pytest.ini
-├── Jenkinsfile                     #            
+├── Jenkinsfile                     # Jenkins Pipeline           
 └── README.md
 
 
@@ -82,8 +82,7 @@ pip install -r requirement.txt
 rm -rf allure-results
 pytest --alluredir=allure-results
 allure serve allure-results
-
-
+```
 
 ```markdown
 ## CI/CD Pipeline
