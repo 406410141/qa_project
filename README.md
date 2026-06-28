@@ -4,6 +4,21 @@
 
 ---
 
+
+## Tech Stack
+
+| Category | Tool |
+|------|------|
+| Language | Python 3.9+, JavaScript (K6) |
+| UI Testing | Selenium WebDriver |
+| API Testing | pytest + requests |
+| Performance Testing | K6 |
+| Framework | pytest |
+| Design Pattern | Page Object Model (POM) |
+| Reporting | Allure Report |
+| CI/CD | GitHub Actions, Jenkins |
+
+
 ## 專案目錄結構 (Project Structure)
 ```text
 qa_project/
@@ -46,6 +61,34 @@ qa_project/
 │   ├── spike_testing.js            # 尖峰測試
 │   └── stress_testing.js           # 壓力測試
 │
+├── .github/workflows/              # GitHub Actions CI
+│   ├── api-tests.yml
+│   └── ui-tests.yml
 │
-├── requirements.txt                
+│
+├── requirements.txt   
+├── pytest.ini
+├── Jenkinsfile                     #            
 └── README.md
+
+
+## How To Run 
+
+```bash
+# 1. Install Dependencies
+pip install -r requirement.txt
+
+# 2. Run Script && Generate Allure Report
+rm -rf allure-results
+pytest --alluredir=allure-results
+allure serve allure-results
+
+
+
+```markdown
+## CI/CD Pipeline
+
+| Tool | Trigger | Description |
+|------|---------|-------------|
+| **GitHub Actions** | Push / Pull Request / Schedule | Execute API & UI tests and generate Allure report |
+| **Jenkins** | Manual Trigger | Parallel execution of API & UI tests with Allure report |

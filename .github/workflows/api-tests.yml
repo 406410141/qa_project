@@ -5,46 +5,46 @@ on:
     branches: [ main ]
   pull_request:
   schedule:
-    - cron: '0 2 * * *'
+  - cron: '0 2 * * *'
 
 jobs:
   api-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirement.txt
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
 
-      - name: Run API tests with Allure
-        run: |
-          pytest api-testing/test_case/ -v --alluredir=api-testing/allure-results
+    - name: Run API tests with Allure
+      run: |
+        pytest api-testing/test_case/ -v --alluredir=api-testing/allure-results
 
-      - name: Install Allure commandline
-        run: |
-          npm install -g allure-commandline
+    - name: Install Allure commandline
+      run: |
+        npm install -g allure-commandline
 
-      - name: Generate Allure Report
-        run: |
-          allure generate ./api-testing/allure-results -o ./api-testing/allure-report --clean
+    - name: Generate Allure Report
+      run: |
+        allure generate ./api-testing/allure-results -o ./api-testing/allure-report --clean
 
-      - name: Upload Allure Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: api-allure-report
-          path: api-testing/allure-report
+    - name: Upload Allure Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: api-allure-report
+        path: api-testing/allure-report
 
-      - name: Upload Allure Results (for debugging)
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: api-allure-results
-          path: api-testing/allure-results
+    - name: Upload Allure Results (for debugging)
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: api-allure-results
+        path: api-testing/allure-results
