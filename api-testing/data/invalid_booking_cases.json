@@ -1,0 +1,57 @@
+[
+    {
+        "test_label": "missing_lastname",
+        "payload": {
+            "firstname": "Bruce",
+            "totalprice": 100,
+            "depositpaid": true,
+            "bookingdates": {
+                "checkin": "2026-01-01",
+                "checkout": "2026-01-02"
+            }
+        }
+    },
+    {
+        "test_label": "wrong_totalprice_type",
+        "payload": {
+            "firstname": "Bruce",
+            "lastname": "Wayne",
+            "totalprice": "one_hundred",
+            "depositpaid": true,
+            "bookingdates": {
+                "checkin": "2026-01-01",
+                "checkout": "2026-01-02"
+            }
+        }
+    },
+    {
+        "test_label": "wrong_depositpaid_type",
+        "payload": {
+            "firstname": "Bruce",
+            "lastname": "Wayne",
+            "totalprice": 100,
+            "depositpaid": "Yes",
+            "bookingdates": {
+                "checkin": "2026-01-01",
+                "checkout": "2026-01-02"
+            }
+        }
+    },
+    {
+        "test_label": "wrong_bookingdates_format",
+        "payload": {
+            "firstname": "Bruce",
+            "lastname": "Wayne",
+            "totalprice": 100,
+            "depositpaid": true,
+            "bookingdates": {
+                "checkin": "not-a-date",
+                "checkout": "2026-01-02"
+            }
+        }
+    },
+    {
+        "test_label": "empty_booking",
+        "payload": {}
+    }
+]

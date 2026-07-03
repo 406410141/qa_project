@@ -1,7 +1,14 @@
 import pytest
+import json
 import allure
 from api_requests.booking_api import BookingAPI
 from data.create_booking_data import INVALID_BOOKING_CASES
+
+
+def load_invalid_cases():
+    """import data from invalid_booking_cases.json"""
+    with open("api-testing/data/invalid_booking_cases.json", "r") as f:
+        return json.load(f)
 
 @allure.epic("API Testing Project")
 @allure.feature("API_CreateBooking")
@@ -48,11 +55,16 @@ def test_create_booking_success(base_url, session):
 @allure.story("Invalid Booking Cases")
 @allure.tag("negative")
 @allure.severity(allure.severity_level.CRITICAL)
-@pytest.mark.parametrize("test_label, invalid_payload", INVALID_BOOKING_CASES)
-def test_create_booking_invalid_inputs(base_url, session, test_label, invalid_payload):
-
+@pytest.mark.parametrize("case", load_invalid_cases())
+#@pytest.mark.parametrize("test_label, invalid_payload", INVALID_BOOKING_CASES)
+def test_create_booking_invalid_inputs(base_url, session, case):
     booking_api = BookingAPI(base_url, session)
-
+    test_label = case["test_label"]
+    invalid_payload = case["payload"]
     response = booking_api.create_booking(invalid_payload)
+    assert response.status_code != 200,f"Failed case: {test_label}"
 
-    assert response.status_code != 200
+
+
+
+
