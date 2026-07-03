@@ -55,7 +55,7 @@ def test_create_booking_success(base_url, session):
 @allure.story("Invalid Booking Cases")
 @allure.tag("negative")
 @allure.severity(allure.severity_level.CRITICAL)
-@pytest.mark.parametrize("case", load_invalid_cases())
+@pytest.mark.parametrize("case", load_invalid_cases(), ids=lambda c: c["test_label"])
 #@pytest.mark.parametrize("test_label, invalid_payload", INVALID_BOOKING_CASES)
 def test_create_booking_invalid_inputs(base_url, session, case):
     booking_api = BookingAPI(base_url, session)
