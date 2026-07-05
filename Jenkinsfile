@@ -3,7 +3,9 @@ pipeline {
 
     environment {
         CI = 'true'
+        PATH = "/opt/homebrew/bin:${env.PATH}"
     }
+
 
     stages {
         stage('0. Clean') {
