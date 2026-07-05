@@ -57,7 +57,13 @@ export default function () {
     
     check(res, {
         'is status 200': (r) => r.status === 200,
-        'has bookingid': (r) => r.json().hasOwnProperty('bookingid'),
+        'has bookingid': (r) => {
+        try {
+            return r.json().hasOwnProperty('bookingid');
+        } catch (e) {
+            return false;
+        }
+    }
     });
     
     sleep(1);   
@@ -65,7 +71,9 @@ export default function () {
 
 export function handleSummary(data) {
     return {
-        "load_test_summary.html": htmlReport(data), 
+        "report_data/spike_test_summary.html": htmlReport(data), 
+        "report_data/spike_test_summary.json": JSON.stringify(data),
+
     };
 }
 

@@ -1,0 +1,27 @@
+
+<html>
+<head>
+<style>
+  body { font-family: -apple-system, "Segoe UI", sans-serif; background: #1a1c23; color: #e0e0e0; padding: 40px; }
+  h1 { color: #7d64ff; }
+  table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #333; }
+  th { background: #22242c; color: #ff6b35; }
+  tr:hover { background: #22242c; }
+  a { color: #ff6b35; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<h1>K6 Performance Test Summary</h1>
+<table>
+  <tr><th>Test Scenario</th><th>P95 Response Time (ms)</th><th>Failure Rate (%)</th><th>Total Requests</th></tr>
+  <tr><td>performance_test</td><td>218.18</td><td>0.00</td><td>773</td></tr><tr><td>spike_test</td><td>224.89</td><td>0.00</td><td>12830</td></tr><tr><td>stress_test</td><td>217.11</td><td>0.00</td><td>16738</td></tr>
+</table>
+<p>Detailed Reports: 
+  <a href="report_data/performance_test_summary.html">performance</a> | 
+  <a href="report_data/spike_test_summary.html">spike</a> | 
+  <a href="report_data/stress_test_summary.html">stress</a>
+</p>
+</body>
+</html>
