@@ -14,6 +14,14 @@ def test_get_booking_ids(base_url, session):
     response = booking_api.get_booking_ids()
     assert response.status_code == 200
     booking_ids = response.json()
+    elapsed = response.elapsed.total_seconds()
+
+    allure.attach(
+        f"{elapsed:.3f} seconds",
+        name="Response Time",
+        attachment_type=allure.attachment_type.TEXT
+    )
+    assert elapsed < 0.95, f"Response Time too Long：{elapsed:.2f}s（Standerd 0.95s）"
     assert isinstance(booking_ids, list)
 
 @allure.epic("API Testing Project")
