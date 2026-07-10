@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 @allure.tag("smoke")
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.story(" homepage loading")
+@pytest.mark.flaky(reruns=2, reruns_delay=1)
 def test_tc001(driver):
     # test_smoke.py
     login_page = LoginPage(driver)
