@@ -1,0 +1,25 @@
+{
+  "name": "qa_project",
+  "version": "1.0.0",
+  "description": "這是一個用於練習與展示自動化測試與效能測試的整合專案，採用常見的測試框架與設計模式，目標是模擬實務上的測試架構與流程。",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/406410141/qa_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/406410141/qa_project/issues"
+  },
+  "homepage": "https://github.com/406410141/qa_project#readme",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.3.0",
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.1.1",
+    "playwright-bdd": "^9.2.0"
+  }
+}
