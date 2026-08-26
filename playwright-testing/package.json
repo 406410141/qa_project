@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "這是一個用於練習與展示自動化測試與效能測試的整合專案，採用常見的測試框架與設計模式，目標是模擬實務上的測試架構與流程。",
   "main": "index.js",
-  "scripts": {},
+ "scripts": {
+  "test": "playwright test",
+  "allure:generate": "allure generate allure-results --clean -o allure-report",
+  "allure:open": "allure open allure-report",
+  "allure:report": "allure generate allure-results --clean -o allure-report && allure open allure-report"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/406410141/qa_project.git"
@@ -17,9 +22,12 @@
   },
   "homepage": "https://github.com/406410141/qa_project#readme",
   "devDependencies": {
-    "@cucumber/cucumber": "^11.3.0",
+    "@cucumber/cucumber": "^13.2.1",
     "@playwright/test": "^1.61.1",
     "@types/node": "^26.1.1",
-    "playwright-bdd": "^9.2.0"
+    "allure-commandline": "^2.43.0",
+    "allure-playwright": "^3.10.2",
+    "playwright-bdd": "^9.2.0",
+    "typescript": "^7.0.2"
   }
 }
