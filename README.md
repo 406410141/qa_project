@@ -180,10 +180,9 @@ node merge_reports.js
 ```
 
 ### Reports
-```bash
-Report	Description
 
-Allure Report	API, Selenium UI and Playwright results
-Playwright HTML Report	Playwright results with screenshots, videos and traces
-K6 HTML Report	Baseline, Spike and Stress results
-```
+| Report | Description |
+|--------|-------------|
+| **Allure Report** | API, Selenium UI and Playwright test results |
+| **Playwright HTML Report** | Playwright test results with screenshots, videos and traces |
+| **K6 HTML Report** | Baseline, Spike and Stress test results |
