@@ -50,8 +50,8 @@ export default defineConfig({
         // Take screenshot when test fails
         screenshot: 'only-on-failure',
 
-        // Do not record video for now
-        video: 'off',
+        //  record video when test fails
+        video: 'retain-on-failure',
 
         // Run browser in headless mode by default
         headless: true,

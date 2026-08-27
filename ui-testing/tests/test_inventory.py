@@ -48,7 +48,7 @@ def test_tc011(driver):
 
 @allure.epic("SauceDemo Project")
 @allure.feature("Item Sort")
-@allure.story("A->Z")
+@allure.story("Z->A")
 @allure.severity(allure.severity_level.NORMAL)
 @allure.tag("regression")
 def test_tc012(driver):

@@ -22,6 +22,7 @@ class CheckoutStepTwo(BasePage):
     ITEM_QTY = (By.CLASS_NAME, "cart_quantity")
 
     FINISH_BTN = (By.ID, "finish")
+    
 
     # Methods
     def get_checkout_items_detail(self):

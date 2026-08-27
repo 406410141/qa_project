@@ -1,0 +1,128 @@
+{
+  "credentials": {
+    "username": "standard_user",
+    "password": "secret_sauce",
+    "displayedUsers": [
+      "standard_user",
+      "locked_out_user",
+      "problem_user",
+      "performance_glitch_user",
+      "error_user",
+      "visual_user"
+    ]
+  },
+
+  "products": [
+    {
+      "id": "backpack",
+      "name": "Sauce Labs Backpack",
+      "price": 29.99
+    },
+    {
+      "id": "bike-light",
+      "name": "Sauce Labs Bike Light",
+      "price": 9.99
+    },
+    {
+      "id": "bolt-t-shirt",
+      "name": "Sauce Labs Bolt T-Shirt",
+      "price": 15.99
+    },
+    {
+      "id": "fleece-jacket",
+      "name": "Sauce Labs Fleece Jacket",
+      "price": 49.99
+    },
+    {
+      "id": "onesie",
+      "name": "Sauce Labs Onesie",
+      "price": 7.99
+    },
+    {
+      "id": "red-t-shirt",
+      "name": "Test.allTheThings() T-Shirt (Red)",
+      "price": 15.99
+    }
+  ],
+
+  "checkout": {
+    "customer": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "postalCode": "12345"
+    },
+
+    "singleItemIds": [
+      "backpack"
+    ],
+
+    "multipleItemIds": [
+      "backpack",
+      "onesie",
+      "red-t-shirt"
+    ],
+
+    "paymentInfo": "SauceCard #31337",
+
+    "shippingInfo": "Free Pony Express Delivery!",
+
+    "singleItemSummary": {
+      "itemTotal": 29.99,
+      "tax": 2.4,
+      "total": 32.39
+    },
+
+    "multipleItemSummary": {
+      "itemTotal": 53.97,
+      "tax": 4.32,
+      "total": 58.29
+    }
+  },
+
+  "sorting": {
+    "az": [
+      "Sauce Labs Backpack",
+      "Sauce Labs Bike Light",
+      "Sauce Labs Bolt T-Shirt",
+      "Sauce Labs Fleece Jacket",
+      "Sauce Labs Onesie",
+      "Test.allTheThings() T-Shirt (Red)"
+    ],
+
+    "za": [
+      "Test.allTheThings() T-Shirt (Red)",
+      "Sauce Labs Onesie",
+      "Sauce Labs Fleece Jacket",
+      "Sauce Labs Bolt T-Shirt",
+      "Sauce Labs Bike Light",
+      "Sauce Labs Backpack"
+    ],
+
+    "priceLowToHigh": [
+      7.99,
+      9.99,
+      15.99,
+      15.99,
+      29.99,
+      49.99
+    ],
+
+    "priceHighToLow": [
+      49.99,
+      29.99,
+      15.99,
+      15.99,
+      9.99,
+      7.99
+    ]
+  },
+
+  "navigation": {
+    "menuItems": [
+      "All Items",
+      "About",
+      "Logout",
+      "Reset App State"
+    ]
+  }
+}
