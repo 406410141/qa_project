@@ -143,8 +143,10 @@ pytest ui-testing/tests/ -v
 # Allure Report
 pytest --alluredir=allure-results
 allure serve allure-results
+```
 
-Playwright Tests
+### Playwright Tests
+```bash
 cd playwright-testing
 
 npm ci
@@ -158,7 +160,10 @@ npx playwright show-report
 
 # Allure Report
 npm run allure:report
-K6 Performance Tests
+```
+
+### K6 Performance Tests
+```bash
 cd performance-testing
 
 # Baseline
@@ -172,8 +177,12 @@ k6 run stress_testing.js
 
 # Combined Report
 node merge_reports.js
-Reports
+```
+
+### Reports
+```bash
 Report	Description
+
 Allure Report	API, Selenium UI and Playwright results
 Playwright HTML Report	Playwright results with screenshots, videos and traces
 K6 HTML Report	Baseline, Spike and Stress results
