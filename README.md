@@ -46,7 +46,7 @@ qa_project/
 │
 ├── ui-testing/                     # UI 自動化測試 (Python + Selenium)
 │   ├── conftest.py                 # WebDriver、Allure、登入 fixture
-│   ├── test_data.py                # 讀取專案共用 JSON 測試資料
+│   ├── test_data.py                # ToDO 讀取專案共用 JSON 測試資料
 │   ├── pages/                      # Page Object Model
 │   │   ├── base_page.py
 │   │   ├── login_page.py
@@ -110,7 +110,6 @@ qa_project/
 ├── Jenkinsfile                     # Jenkins Pipeline
 ├── pytest.ini
 ├── requirements.txt
-├── .gitignore
 └── README.md
 ```
 
