@@ -46,7 +46,7 @@ qa_project/
 │
 ├── ui-testing/                     # UI 自動化測試 (Python + Selenium)
 │   ├── conftest.py                 # WebDriver、Allure、登入 fixture
-│   ├── test_data.py                # ToDO 讀取專案共用 JSON 測試資料
+│   ├── test_data.py                # 讀取專案共用 JSON 測試資料
 │   ├── pages/                      # Page Object Model
 │   │   ├── base_page.py
 │   │   ├── login_page.py
@@ -55,14 +55,13 @@ qa_project/
 │   │   ├── checkout_step_one_page.py
 │   │   ├── checkout_step_two_page.py
 │   │   └── checkout_complete.py
-│   ├── tests/
-│   │   ├── test_cart.py
-│   │   ├── test_checkout.py
-│   │   ├── test_inventory.py
-│   │   ├── test_login.py
-│   │   ├── test_navigation.py
-│   │   └── test_smoke.py
-│   └── utils/                      # 工具函式
+│   └── tests/
+│       ├── test_cart.py
+│       ├── test_checkout.py
+│       ├── test_inventory.py
+│       ├── test_login.py
+│       ├── test_navigation.py
+│       └── test_smoke.py
 │
 ├── playwright-testing/             # UI 自動化測試 (TypeScript + Playwright)
 │   ├── features/
@@ -86,7 +85,6 @@ qa_project/
 │   │   ├── test_login.spec.ts
 │   │   ├── test_navigation.spec.ts
 │   │   └── test_smoke.spec.ts
-│   ├── utils/                      # 工具函式
 │   ├── playwright.config.ts
 │   ├── package.json
 │   └── package-lock.json
