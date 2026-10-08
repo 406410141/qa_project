@@ -63,9 +63,9 @@ def test_update_booking_with_invalid_token(base_url, session, created_booking):
         "additionalneeds": "Nothing"
     }
 
-    invalid_token_header = {"Cookie": "token=invalid_token_12345_xyz"}
+    invalid_token = "invalid_token_12345_xyz"
 
-    response = booking_api.update_booking(target_id, update_payload, invalid_token_header)
+    response = booking_api.update_booking(target_id, update_payload, invalid_token)
 
     print(f"\n RunningPUT Wrong Token Testing . ID : {target_id}，Response Code: {response.status_code}")
 
