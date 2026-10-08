@@ -5,7 +5,8 @@ import { allure } from 'allure-playwright';
 
 test.describe('Cart Tests', () => {
 
-    test('test_tc008 - Click Cart Btn', async ({ inventoryPage, page }) => {
+    // [新增] tag：可用 npx playwright test --grep @smoke 篩選
+    test('test_tc008 - Click Cart Btn', { tag: ['@smoke', '@regression'] }, async ({ inventoryPage, page }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Cart');
         await allure.story('Click Cart Btn');
@@ -36,7 +37,8 @@ test.describe('Cart Tests', () => {
     });
 
 
-    test('test_tc009 - Click CTU BTN', async ({ inventoryPage, page }) => {
+    // [新增] tag：可用 npx playwright test --grep @regression 篩選
+    test('test_tc009 - Click CTU BTN', { tag: ['@regression'] }, async ({ inventoryPage, page }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Cart');
         await allure.story('Click CTU BTN');

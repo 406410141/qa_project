@@ -11,6 +11,8 @@ expected_menu_items = ['All Items', 'About', 'Logout', 'Reset App State']
 @allure.feature("Navigation Bar")
 @allure.story("Check Nav Bar Items")
 @allure.severity(allure.severity_level.NORMAL)
+# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
+@pytest.mark.regression
 @allure.tag("regression")
 def test_tc005(driver):
     login_page = LoginPage(driver)
@@ -37,6 +39,8 @@ def test_tc005(driver):
 @allure.feature("Navigation Bar")
 @allure.story("About")
 @allure.severity(allure.severity_level.NORMAL)
+# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
+@pytest.mark.regression
 @allure.tag("regression")
 def test_tc006(driver):
     driver.get(LoginPage.URL)
@@ -53,6 +57,9 @@ def test_tc006(driver):
 @allure.feature("Navigation Bar")
 @allure.story("Logout")
 @allure.severity(allure.severity_level.CRITICAL)
+# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
+@pytest.mark.smoke
+@pytest.mark.regression
 @allure.tag("smoke", "regression")
 def test_tc007(driver):
     driver.get(LoginPage.URL)

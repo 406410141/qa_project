@@ -7,6 +7,8 @@ from api_requests.base import BaseAPI
 @allure.epic("API Testing Project")
 @allure.feature("API_DeleteBooking")
 @allure.story("Delete Booking")
+# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
+@pytest.mark.smoke
 @allure.tag("smoke")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_delete_booking(base_url, session, auth_token):
@@ -34,6 +36,8 @@ def test_delete_booking(base_url, session, auth_token):
 @allure.epic("API Testing Project")
 @allure.feature("API_DeleteBooking")
 @allure.story("Delete Booking Not Found")
+# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
+@pytest.mark.smoke
 @allure.tag("smoke")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_delete_booking_not_found(base_url, session, auth_token):
@@ -44,6 +48,8 @@ def test_delete_booking_not_found(base_url, session, auth_token):
 @allure.epic("API Testing Project")
 @allure.feature("API_DeleteBooking")
 @allure.story("Delete Booking Unauthorized")
+# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
+@pytest.mark.smoke
 @allure.tag("smoke")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_delete_booking_unauthorized(base_url, session):

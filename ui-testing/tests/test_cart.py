@@ -7,6 +7,9 @@ from pages.cart_page import Cart
 @allure.epic("SauceDemo Project")
 @allure.feature("Cart")
 @allure.story("Click Cart Btn")
+# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
+@pytest.mark.smoke
+@pytest.mark.regression
 @allure.tag("smoke", "regression")
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.description("""
@@ -26,6 +29,8 @@ def test_tc008(logged_in_driver):
 @allure.epic("SauceDemo Project")
 @allure.feature("Cart")
 @allure.story("Click CTU BTN")
+# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
+@pytest.mark.regression
 @allure.tag("regression")
 @allure.severity(allure.severity_level.NORMAL)
 @allure.description("""
