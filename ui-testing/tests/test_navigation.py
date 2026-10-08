@@ -1,6 +1,5 @@
 import pytest
 import allure
-from pages.login_page import LoginPage
 from pages.inventory import Inventory
 
 # test_navigation.py
@@ -14,14 +13,8 @@ expected_menu_items = ['All Items', 'About', 'Logout', 'Reset App State']
 # [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc005(driver):
-    login_page = LoginPage(driver)
-    driver.get(login_page.URL)
-
-    login_page.login(login_page.ACCEPTED_USERNAMES, login_page.ACCEPTED_PASSWORD)
-    assert driver.current_url == "https://www.saucedemo.com/inventory.html", "Login failed or URL mismatch"
-
-    inventory_page = Inventory(driver)
+def test_tc005(logged_in_driver):
+    inventory_page = Inventory(logged_in_driver)
     inventory_page.click(inventory_page.SIDE)
     menu_items = [
         inventory_page.get_text(inventory_page.ALL_ITEMS_LINK),
@@ -42,15 +35,11 @@ def test_tc005(driver):
 # [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc006(driver):
-    driver.get(LoginPage.URL)
-    login_page = LoginPage(driver)
-    login_page.login(login_page.ACCEPTED_USERNAMES, login_page.ACCEPTED_PASSWORD)
-    assert driver.current_url == "https://www.saucedemo.com/inventory.html", "Login failed or URL mismatch"
-    inventory_page = Inventory(driver)
+def test_tc006(logged_in_driver):
+    inventory_page = Inventory(logged_in_driver)
     inventory_page.click(inventory_page.SIDE)
     inventory_page.click(inventory_page.ABOUT_LINK)
-    assert driver.current_url == "https://saucelabs.com/", "About link did not navigate to the correct URL"
+    assert logged_in_driver.current_url == "https://saucelabs.com/", "About link did not navigate to the correct URL"
 
 
 @allure.epic("SauceDemo Project")
@@ -61,12 +50,8 @@ def test_tc006(driver):
 @pytest.mark.smoke
 @pytest.mark.regression
 @allure.tag("smoke", "regression")
-def test_tc007(driver):
-    driver.get(LoginPage.URL)
-    login_page = LoginPage(driver)
-    login_page.login(login_page.ACCEPTED_USERNAMES, login_page.ACCEPTED_PASSWORD)
-    assert driver.current_url == "https://www.saucedemo.com/inventory.html", "Login failed or URL mismatch"
-    inventory_page = Inventory(driver)
+def test_tc007(logged_in_driver):
+    inventory_page = Inventory(logged_in_driver)
     inventory_page.click(inventory_page.SIDE)
     inventory_page.click(inventory_page.LOGOUT_LINK)
-    assert driver.current_url == "https://www.saucedemo.com/", "Logout link did not navigate to the correct URL"
+    assert logged_in_driver.current_url == "https://www.saucedemo.com/", "Logout link did not navigate to the correct URL"

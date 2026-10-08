@@ -1,6 +1,6 @@
 import pytest
 import allure
-from pages.login_page import LoginPage
+
 from pages.inventory import Inventory
 
 
@@ -34,12 +34,8 @@ EXPECTED_PRICE_HILO = [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
 # [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc011(driver):
-    driver.get(LoginPage.URL)
-    login_page = LoginPage(driver)
-    login_page.login(login_page.ACCEPTED_USERNAMES, login_page.ACCEPTED_PASSWORD)
-    assert driver.current_url == "https://www.saucedemo.com/inventory.html", "Login failed or URL mismatch"
-    inventory = Inventory(driver)
+def test_tc011(logged_in_driver):
+    inventory = Inventory(logged_in_driver)
 
     # Check A->Z
     item_names = inventory.get_all_items_name()
@@ -56,12 +52,8 @@ def test_tc011(driver):
 # [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc012(driver):
-    driver.get(LoginPage.URL)
-    login_page = LoginPage(driver)
-    login_page.login(login_page.ACCEPTED_USERNAMES, login_page.ACCEPTED_PASSWORD)
-    assert driver.current_url == "https://www.saucedemo.com/inventory.html", "Login failed or URL mismatch"
-    inventory = Inventory(driver)
+def test_tc012(logged_in_driver):
+    inventory = Inventory(logged_in_driver)
 
     inventory.click_sort_za()
     # Check Z->A
@@ -79,12 +71,8 @@ def test_tc012(driver):
 # [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc013(driver):
-    driver.get(LoginPage.URL)
-    login_page = LoginPage(driver)
-    login_page.login(login_page.ACCEPTED_USERNAMES, login_page.ACCEPTED_PASSWORD)
-    assert driver.current_url == "https://www.saucedemo.com/inventory.html", "Login failed or URL mismatch"
-    inventory = Inventory(driver)
+def test_tc013(logged_in_driver):
+    inventory = Inventory(logged_in_driver)
     inventory.click_sort_lohi()
     item_prices = inventory.get_all_items_price()
 
@@ -108,12 +96,8 @@ def test_tc013(driver):
 # [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc014(driver):
-    driver.get(LoginPage.URL)
-    login_page = LoginPage(driver)
-    login_page.login(login_page.ACCEPTED_USERNAMES, login_page.ACCEPTED_PASSWORD)
-    assert driver.current_url == "https://www.saucedemo.com/inventory.html", "Login failed or URL mismatch"
-    inventory = Inventory(driver)
+def test_tc014(logged_in_driver):
+    inventory = Inventory(logged_in_driver)
     inventory.click_sort_hilo()
 
     item_prices = inventory.get_all_items_price()
