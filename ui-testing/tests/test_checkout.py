@@ -1,6 +1,5 @@
 import pytest
 import allure
-from pages.login_page import LoginPage
 from pages.inventory import Inventory
 from pages.cart_page import Cart
 from pages.checkout_step_one_page import CheckoutStepOne
@@ -16,18 +15,14 @@ from pages.checkout_complete import CheckoutComplete
 @pytest.mark.smoke
 @pytest.mark.regression
 @allure.tag("smoke", "regression")
-def test_tc010(driver):
-    driver.get(LoginPage.URL)
-    login_page = LoginPage(driver)
-    login_page.login(login_page.ACCEPTED_USERNAMES, login_page.ACCEPTED_PASSWORD)
-    assert driver.current_url == "https://www.saucedemo.com/inventory.html", "Login failed or URL mismatch"
-    inventory = Inventory(driver)
+def test_tc010(logged_in_driver):
+    inventory = Inventory(logged_in_driver)
     inventory.click(inventory.ADD_ITEM_BACKPACK)
-    assert driver.find_element(*inventory.SHOP_CART).text == '1', "Cart count is not 1 after adding item"
+    assert logged_in_driver.find_element(*inventory.SHOP_CART).text == '1', "Cart count is not 1 after adding item"
     inventory.click(inventory.SHOP_CART)
-    assert driver.current_url == "https://www.saucedemo.com/cart.html", "Cart link did not navigate to the correct URL"
+    assert logged_in_driver.current_url == "https://www.saucedemo.com/cart.html", "Cart link did not navigate to the correct URL"
 
-    cart_page = Cart(driver)
+    cart_page = Cart(logged_in_driver)
 
     items_in_cart = cart_page.get_all_items_detail()
 
@@ -42,15 +37,15 @@ def test_tc010(driver):
     print(f"Item Info: {target}")
 
     cart_page.click(cart_page.CHECKOUT)
-    assert driver.current_url == "https://www.saucedemo.com/checkout-step-one.html", "Checkout link did not navigate to the correct URL"
-    CS1 = CheckoutStepOne(driver)
+    assert logged_in_driver.current_url == "https://www.saucedemo.com/checkout-step-one.html", "Checkout link did not navigate to the correct URL"
+    CS1 = CheckoutStepOne(logged_in_driver)
     assert CS1.get_text(CS1.CHECKOUT_TITLE) == "Checkout: Your Information", "Checkout page title not found"
 
     CS1.fill_checkout_info("Tony", "Xie", "300")
     CS1.click_continue()
-    assert driver.current_url == "https://www.saucedemo.com/checkout-step-two.html", "Did not navigate to checkout overview page"
+    assert logged_in_driver.current_url == "https://www.saucedemo.com/checkout-step-two.html", "Did not navigate to checkout overview page"
 
-    CS2 = CheckoutStepTwo(driver)
+    CS2 = CheckoutStepTwo(logged_in_driver)
     assert CS2.get_text(CS2.CHECKOUT_TITLE) == "Checkout: Overview", "Checkout overview page title not found"
     checkout_overview_items = CS2.get_checkout_items_detail()
     assert len(
@@ -70,13 +65,13 @@ def test_tc010(driver):
 
     CS2.click_finish()
 
-    assert driver.current_url == "https://www.saucedemo.com/checkout-complete.html", "Did not navigate to checkout complete page"
-    CC = CheckoutComplete(driver)
+    assert logged_in_driver.current_url == "https://www.saucedemo.com/checkout-complete.html", "Did not navigate to checkout complete page"
+    CC = CheckoutComplete(logged_in_driver)
     assert CC.get_text(CC.COMPLETE_HEADER) == "Thank you for your order!", "Checkout complete title not found"
     assert CC.get_text(
         CC.COMPLETE_TEXT) == "Your order has been dispatched, and will arrive just as fast as the pony can get there!", "Complete text mismatch"
     CC.click(CC.BACK_HOME_BTN)
-    assert driver.current_url == "https://www.saucedemo.com/inventory.html", "Back home button did not navigate to inventory page"
+    assert logged_in_driver.current_url == "https://www.saucedemo.com/inventory.html", "Back home button did not navigate to inventory page"
 
 
 @allure.epic("SauceDemo Project")
@@ -87,20 +82,16 @@ def test_tc010(driver):
 @pytest.mark.smoke
 @pytest.mark.regression
 @allure.tag("smoke", "regression")
-def test_tc015(driver):
-    driver.get(LoginPage.URL)
-    login_page = LoginPage(driver)
-    login_page.login(login_page.ACCEPTED_USERNAMES, login_page.ACCEPTED_PASSWORD)
-    assert driver.current_url == "https://www.saucedemo.com/inventory.html", "Login failed or URL mismatch"
-    inventory = Inventory(driver)
+def test_tc015(logged_in_driver):
+    inventory = Inventory(logged_in_driver)
     inventory.click(inventory.ADD_ITEM_BACKPACK)
     inventory.click(inventory.ADD_ITEM_ONESIE)
     inventory.click(inventory.ADD_ITEM_RED_TSHIRT)
-    assert driver.find_element(*inventory.CART_ITEM).text == '3', "Cart count is not 3 after adding items"
+    assert logged_in_driver.find_element(*inventory.CART_ITEM).text == '3', "Cart count is not 3 after adding items"
     inventory.click(inventory.SHOP_CART)
-    assert driver.current_url == "https://www.saucedemo.com/cart.html", "Cart link did not navigate to the correct URL"
+    assert logged_in_driver.current_url == "https://www.saucedemo.com/cart.html", "Cart link did not navigate to the correct URL"
 
-    cart_page = Cart(driver)
+    cart_page = Cart(logged_in_driver)
 
     items_in_cart = cart_page.get_all_items_detail()
     assert len(items_in_cart) == 3, f"Expected 3 items, but found  {len(items_in_cart)} "
@@ -118,11 +109,11 @@ def test_tc015(driver):
         assert match["qty"] == expected["qty"], f"{expected['name']} Quantity Error: {match['qty']}"
 
     cart_page.click(cart_page.CHECKOUT)
-    CS1 = CheckoutStepOne(driver)
+    CS1 = CheckoutStepOne(logged_in_driver)
     CS1.fill_checkout_info("Tony", "Xie", "300")
     CS1.click_continue()
-    assert driver.current_url == "https://www.saucedemo.com/checkout-step-two.html", "Did not navigate to checkout overview page"
-    CS2 = CheckoutStepTwo(driver)
+    assert logged_in_driver.current_url == "https://www.saucedemo.com/checkout-step-two.html", "Did not navigate to checkout overview page"
+    CS2 = CheckoutStepTwo(logged_in_driver)
     overview_items = CS2.get_checkout_items_detail()
     assert len(overview_items) == 3, f"Incorrect Quantity In Checkout List: Expected 3, Actual {len(overview_items)}"
        
@@ -138,7 +129,7 @@ def test_tc015(driver):
 
     CS2.click_finish()
 
-    CC = CheckoutComplete(driver)
+    CC = CheckoutComplete(logged_in_driver)
     assert "THANK YOU FOR YOUR ORDER" in CC.get_text(CC.COMPLETE_HEADER).upper()
     CC.click(CC.BACK_HOME_BTN)
-    assert "inventory.html" in driver.current_url
+    assert "inventory.html" in logged_in_driver.current_url
