@@ -5,6 +5,8 @@ from api_requests.booking_api import BookingAPI
 @allure.epic("API Testing Project")
 @allure.feature("API_UpdateBooking")
 @allure.story("Update Booking")
+# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
+@pytest.mark.smoke
 @allure.tag("smoke")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_update_booking(base_url, session, created_booking, auth_token):
@@ -43,6 +45,8 @@ def test_update_booking(base_url, session, created_booking, auth_token):
 @allure.epic("API Testing Project")
 @allure.feature("API_UpdateBooking")
 @allure.story("Update Booking With Invalid Token")
+# [新增] pytest marker：可用 pytest -m negative 篩選（@allure.tag 只影響報告）
+@pytest.mark.negative
 @allure.tag("negative")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_update_booking_with_invalid_token(base_url, session, created_booking):

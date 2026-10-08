@@ -124,6 +124,22 @@ qa_project/
 
 ---
 
+## Known Issues（為什麼 API 測試是紅燈）
+
+GitHub Actions 的 **Run API Tests** 目前固定失敗，這是刻意保留的結果，不是測試程式壞掉。
+
+測試對象 [restful-booker](https://restful-booker.herokuapp.com) 是公開的練習用 API，本身帶有缺陷。以下 3 個負向案例送出不合法的資料，預期應被拒絕，實際卻回傳 `200` 並建立訂單：
+
+| Case | 送出的資料 | 預期 | 實際 |
+|------|-----------|------|------|
+| `wrong_totalprice_type` | `totalprice: "one_hundred"` | 拒絕請求 | `200`，`totalprice` 存成 `null` |
+| `wrong_depositpaid_type` | `depositpaid: "Yes"` | 拒絕請求 | `200`，存成 `true` |
+| `wrong_bookingdates_format` | `checkin: "not-a-date"` | 拒絕請求 | `200`，日期存成 `0NaN-aN-aN` |
+
+對應的測試在 `api-testing/test_case/test_CreateBooking.py` 的 `test_create_booking_invalid_inputs`。其餘 API 測試皆通過。
+
+---
+
 ## How To Run
 
 ### Python Tests
@@ -174,6 +190,17 @@ k6 run stress_testing.js
 
 # Combined Report
 node merge_reports.js
+```
+
+### Run By Tag
+
+```bash
+# Python (API + Selenium): smoke / regression / negative
+pytest -m smoke
+pytest -m "regression and not smoke"
+
+# Playwright
+npx playwright test --grep @smoke
 ```
 
 ### Reports

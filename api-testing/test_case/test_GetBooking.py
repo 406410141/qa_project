@@ -8,6 +8,8 @@ from data.get_booking_data import INVALID_GET_BOOKING_CASES
 @allure.epic("API Testing Project")
 @allure.feature("API_GetBooking")
 @allure.story("GetBooking")
+# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
+@pytest.mark.smoke
 @allure.tag("smoke")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_get_booking(base_url, session, created_booking):
@@ -30,6 +32,8 @@ def test_get_booking(base_url, session, created_booking):
 @allure.epic("API Testing Project")
 @allure.feature("API_GetBooking")
 @allure.story("Not Found")
+# [新增] pytest marker：可用 pytest -m negative 篩選（@allure.tag 只影響報告）
+@pytest.mark.negative
 @allure.tag("negative")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_get_booking_not_found(base_url, session):
@@ -40,6 +44,8 @@ def test_get_booking_not_found(base_url, session):
 @allure.epic("API Testing Project")
 @allure.feature("API_GetBooking")
 @allure.story("Invalid Get Booking")
+# [新增] pytest marker：可用 pytest -m negative 篩選（@allure.tag 只影響報告）
+@pytest.mark.negative
 @allure.tag("negative")
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.parametrize("test_label, invalid_id, expected_status", INVALID_GET_BOOKING_CASES)

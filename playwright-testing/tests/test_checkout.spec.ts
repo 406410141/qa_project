@@ -9,7 +9,8 @@ import { allure } from 'allure-playwright';
 
 test.describe('Checkout Test', () => {
 
-    test('test_tc010 - Single Item Checkout', async ({ inventoryPage, page }) => {
+    // [新增] tag：可用 npx playwright test --grep @smoke 篩選
+    test('test_tc010 - Single Item Checkout', { tag: ['@smoke', '@regression'] }, async ({ inventoryPage, page }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Checkout');
         await allure.story('Single Item Checkout');
@@ -144,17 +145,10 @@ test.describe('Checkout Test', () => {
         );
 
         // Checkout complete validation
-        expect(
-            await completePage.getCompleteTitle()
-        ).toBe('Checkout: Complete!');
-
-        expect(
-            await completePage.getCompleteHeader()
-        ).toBe('Thank you for your order!');
-
-        expect(
-            await completePage.getCompleteText()
-        ).toBe(
+        // 改用 toHaveText 直接對 Locator 斷言，內建自動重試，避免頁面文字還沒渲染完成就被讀取
+        await expect(completePage.completeTitle).toHaveText('Checkout: Complete!');
+        await expect(completePage.completeHeader).toHaveText('Thank you for your order!');
+        await expect(completePage.completeText).toHaveText(
             'Your order has been dispatched, and will arrive just as fast as the pony can get there!'
         );
 
@@ -167,7 +161,8 @@ test.describe('Checkout Test', () => {
     });
 
 
-    test('test_tc015 - Multiple Item Checkout', async ({ inventoryPage, page }) => {
+    // [新增] tag：可用 npx playwright test --grep @smoke 篩選
+    test('test_tc015 - Multiple Item Checkout', { tag: ['@smoke', '@regression'] }, async ({ inventoryPage, page }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Checkout');
         await allure.story('Multiple Item Checkout');
@@ -306,17 +301,10 @@ test.describe('Checkout Test', () => {
         );
 
         // Checkout complete validation
-        expect(
-            await completePage.getCompleteTitle()
-        ).toBe('Checkout: Complete!');
-
-        expect(
-            await completePage.getCompleteHeader()
-        ).toBe('Thank you for your order!');
-
-        expect(
-            await completePage.getCompleteText()
-        ).toBe(
+        // 改用 toHaveText 直接對 Locator 斷言，內建自動重試，避免頁面文字還沒渲染完成就被讀取
+        await expect(completePage.completeTitle).toHaveText('Checkout: Complete!');
+        await expect(completePage.completeHeader).toHaveText('Thank you for your order!');
+        await expect(completePage.completeText).toHaveText(
             'Your order has been dispatched, and will arrive just as fast as the pony can get there!'
         );
 

@@ -1,3 +1,4 @@
+import pytest
 import allure
 from pages.login_page import LoginPage
 from pages.inventory import Inventory
@@ -30,6 +31,8 @@ EXPECTED_PRICE_HILO = [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
 @allure.feature("Item Sort")
 @allure.story("A->Z")
 @allure.severity(allure.severity_level.NORMAL)
+# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
+@pytest.mark.regression
 @allure.tag("regression")
 def test_tc011(driver):
     driver.get(LoginPage.URL)
@@ -50,6 +53,8 @@ def test_tc011(driver):
 @allure.feature("Item Sort")
 @allure.story("Z->A")
 @allure.severity(allure.severity_level.NORMAL)
+# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
+@pytest.mark.regression
 @allure.tag("regression")
 def test_tc012(driver):
     driver.get(LoginPage.URL)
@@ -71,6 +76,8 @@ def test_tc012(driver):
 @allure.feature("Item Sort")
 @allure.story("Lo->Hi")
 @allure.severity(allure.severity_level.NORMAL)
+# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
+@pytest.mark.regression
 @allure.tag("regression")
 def test_tc013(driver):
     driver.get(LoginPage.URL)
@@ -98,6 +105,8 @@ def test_tc013(driver):
 @allure.feature("Item Sort")
 @allure.story("Hi->Lo")
 @allure.severity(allure.severity_level.NORMAL)
+# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
+@pytest.mark.regression
 @allure.tag("regression")
 def test_tc014(driver):
     driver.get(LoginPage.URL)

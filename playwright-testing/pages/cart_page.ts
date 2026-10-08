@@ -16,23 +16,21 @@ export class CartPage extends BasePage {
     }
 
     async getAllItemsDetail(): Promise<{ name: string; price: number; qty: number }[]> {
-        const count = await this.cartItemContainer.count();
-        const itemDetails = [];
+        await this.cartItemContainer.first().waitFor({ state: 'visible' });
 
-        for (let i = 0; i < count; i++) {
-            const item = this.cartItemContainer.nth(i);
-            const name = await item.locator('.inventory_item_name').innerText();
-            const priceRaw = await item.locator('.inventory_item_price').innerText();
-            const qty = await item.locator('.cart_quantity').innerText();
-
-            itemDetails.push({
-                name,
-                price: parseFloat(priceRaw.replace('$', '')),
-                qty: parseInt(qty, 10),
-            });
-        }
-
-        return itemDetails;
+        const items = await this.cartItemContainer.all();
+        return Promise.all(
+            items.map(async (item) => {
+                const name = await item.locator('.inventory_item_name').innerText();
+                const priceRaw = await item.locator('.inventory_item_price').innerText();
+                const qty = await item.locator('.cart_quantity').innerText();
+                return {
+                    name: name.trim(),
+                    price: parseFloat(priceRaw.replace('$', '')),
+                    qty: parseInt(qty, 10),
+                };
+            })
+        );
     }
 
     async clickContinueShopping(): Promise<void> {

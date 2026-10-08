@@ -4,7 +4,8 @@ import { sauceDemoData } from '../test-data/saucedemo.data';
 
 
 
-test('test_tc002 - Login Info', async ({ page }) => {
+// [新增] tag：可用 npx playwright test --grep @regression 篩選
+test('test_tc002 - Login Info', { tag: ['@regression'] }, async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     await loginPage.goto();
@@ -23,7 +24,8 @@ test('test_tc002 - Login Info', async ({ page }) => {
 
 
 
-test('test_tc003 - Login', async ({ page }) => {
+// [新增] tag：可用 npx playwright test --grep @regression 篩選
+test('test_tc003 - Login', { tag: ['@regression'] }, async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login(
@@ -36,7 +38,8 @@ test('test_tc003 - Login', async ({ page }) => {
     );
 });
 
-test('test_tc004 - Close Error Message', async ({ page }) => {
+// [新增] tag：可用 npx playwright test --grep @regression 篩選
+test('test_tc004 - Close Error Message', { tag: ['@regression'] }, async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.navigate(loginPage.url);

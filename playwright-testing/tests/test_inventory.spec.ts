@@ -5,7 +5,8 @@ import { allure } from 'allure-playwright';
 
 test.describe('Inventory Test', () => {
 
-    test('test_tc011 - Item Sort A-Z', async ({ inventoryPage }) => {
+    // [新增] tag：可用 npx playwright test --grep @regression 篩選
+    test('test_tc011 - Item Sort A-Z', { tag: ['@regression'] }, async ({ inventoryPage }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Item Sort');
         await allure.story('A-Z');
@@ -26,7 +27,8 @@ test.describe('Inventory Test', () => {
     });
 
 
-    test('test_tc012 - Item Sort Z-A', async ({ inventoryPage }) => {
+    // [新增] tag：可用 npx playwright test --grep @regression 篩選
+    test('test_tc012 - Item Sort Z-A', { tag: ['@regression'] }, async ({ inventoryPage }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Item Sort');
         await allure.story('Z-A');
@@ -47,7 +49,8 @@ test.describe('Inventory Test', () => {
     });
 
 
-    test('test_tc013 - Price Lo-Hi', async ({ inventoryPage }) => {
+    // [新增] tag：可用 npx playwright test --grep @regression 篩選
+    test('test_tc013 - Price Lo-Hi', { tag: ['@regression'] }, async ({ inventoryPage }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Item Sort');
         await allure.story('Price Low to High');
@@ -68,7 +71,8 @@ test.describe('Inventory Test', () => {
     });
 
 
-    test('test_tc014 - Price Hi-Lo', async ({ inventoryPage }) => {
+    // [新增] tag：可用 npx playwright test --grep @regression 篩選
+    test('test_tc014 - Price Hi-Lo', { tag: ['@regression'] }, async ({ inventoryPage }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Item Sort');
         await allure.story('Price High to Low');

@@ -7,6 +7,8 @@ from api_requests.base import BaseAPI
 @allure.epic("API Testing Project")
 @allure.feature("API_PartialUpdateBooking")
 @allure.story("Partial Update Booking")
+# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
+@pytest.mark.smoke
 @allure.tag("smoke")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_partial_update_booking(base_url, session, created_booking, auth_token):

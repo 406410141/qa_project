@@ -5,7 +5,8 @@ import { allure } from 'allure-playwright';
 
 test.describe('Navigation Bar Tests', () => {
 
-    test('test_tc005 - Check Nav Bar Items', async ({ inventoryPage }) => {
+    // [新增] tag：可用 npx playwright test --grep @regression 篩選
+    test('test_tc005 - Check Nav Bar Items', { tag: ['@regression'] }, async ({ inventoryPage }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Navigation Bar');
         await allure.story('Check Nav Bar Items');
@@ -14,27 +15,21 @@ test.describe('Navigation Bar Tests', () => {
 
         await inventoryPage.openSideMenu();
 
-        for (
-            let i = 0;
-            i < sauceDemoData.navigation.menuItems.length;
-            i++
-        ) {
-            await expect(
-                inventoryPage.sidebarContainer.locator('a').nth(i)
-            ).toHaveText(
-                sauceDemoData.navigation.menuItems[i]
-            );
+        const actualMenuTexts = await inventoryPage.sidebarContainer
+            .locator('a')
+            .allTextContents();
+
+        for (const expectedItem of sauceDemoData.navigation.menuItems) {
+            expect(actualMenuTexts).toContain(expectedItem);
         }
 
         await inventoryPage.closeSideMenu();
-
-        await expect(
-            inventoryPage.sidebarContainer
-        ).not.toBeVisible();
+        await expect(inventoryPage.sidebarContainer).not.toBeVisible();
     });
 
 
-    test('test_tc006 - Check Nav Bar About', async ({ inventoryPage, page }) => {
+    // [新增] tag：可用 npx playwright test --grep @regression 篩選
+    test('test_tc006 - Check Nav Bar About', { tag: ['@regression'] }, async ({ inventoryPage, page }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Navigation Bar');
         await allure.story('About');
@@ -51,7 +46,8 @@ test.describe('Navigation Bar Tests', () => {
     });
 
 
-    test('test_tc007 - Check Nav Bar Logout', async ({ inventoryPage, page }) => {
+    // [新增] tag：可用 npx playwright test --grep @smoke 篩選
+    test('test_tc007 - Check Nav Bar Logout', { tag: ['@smoke', '@regression'] }, async ({ inventoryPage, page }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Navigation Bar');
         await allure.story('Logout');

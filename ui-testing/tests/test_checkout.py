@@ -12,6 +12,9 @@ from pages.checkout_complete import CheckoutComplete
 @allure.feature("Checkout")
 @allure.story("Single Item Checkout")
 @allure.severity(allure.severity_level.CRITICAL)
+# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
+@pytest.mark.smoke
+@pytest.mark.regression
 @allure.tag("smoke", "regression")
 def test_tc010(driver):
     driver.get(LoginPage.URL)
@@ -80,6 +83,9 @@ def test_tc010(driver):
 @allure.feature("Checkout")
 @allure.story("Multiple Item Checkout")
 @allure.severity(allure.severity_level.NORMAL)
+# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
+@pytest.mark.smoke
+@pytest.mark.regression
 @allure.tag("smoke", "regression")
 def test_tc015(driver):
     driver.get(LoginPage.URL)

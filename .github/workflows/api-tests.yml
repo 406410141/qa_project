@@ -29,14 +29,20 @@ jobs:
         pytest api-testing/test_case/ -v --alluredir=api-testing/allure-results
 
     - name: Install Allure commandline
+      # [新增] if: always() → 測試失敗時也照樣執行這一步，否則失敗時拿不到報告
+      if: always()
       run: |
         npm install -g allure-commandline
 
     - name: Generate Allure Report
+      # [新增] if: always() → 測試失敗時也照樣執行這一步，否則失敗時拿不到報告
+      if: always()
       run: |
         allure generate ./api-testing/allure-results -o ./api-testing/allure-report --clean
 
     - name: Upload Allure Report
+      # [新增] if: always() → 測試失敗時也照樣執行這一步，否則失敗時拿不到報告
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: api-allure-report

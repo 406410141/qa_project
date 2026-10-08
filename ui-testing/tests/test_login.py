@@ -17,6 +17,8 @@ EXPECTED_USERS = [
 @allure.feature("Login Info")
 @allure.story("Login Info")
 @allure.severity(allure.severity_level.MINOR)
+# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
+@pytest.mark.regression
 @allure.tag("regression")
 def test_tc002(driver):
     login_page = LoginPage(driver)
@@ -41,6 +43,8 @@ def test_tc002(driver):
 @allure.feature("Login Info")
 @allure.story("Close ERROR MSG")
 @allure.severity(allure.severity_level.MINOR)
+# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
+@pytest.mark.regression
 @allure.tag("regression")
 def test_tc003(driver):
     login_page = LoginPage(driver)
@@ -54,6 +58,8 @@ def test_tc003(driver):
 @allure.feature("Login Info")
 @allure.story("Close ERROR MSG")
 @allure.severity(allure.severity_level.MINOR)
+# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
+@pytest.mark.regression
 @allure.tag("regression")
 def test_tc004(driver):
     login_page = LoginPage(driver)

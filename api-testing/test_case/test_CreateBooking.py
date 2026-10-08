@@ -13,6 +13,8 @@ def load_invalid_cases():
 @allure.epic("API Testing Project")
 @allure.feature("API_CreateBooking")
 @allure.story("Create Booking")
+# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
+@pytest.mark.smoke
 @allure.tag("smoke")
 @allure.severity(allure.severity_level.CRITICAL)
 def test_create_booking_success(base_url, session):
@@ -53,6 +55,8 @@ def test_create_booking_success(base_url, session):
 @allure.epic("API Testing Project")
 @allure.feature("API_CreateBooking")
 @allure.story("Invalid Booking Cases")
+# [新增] pytest marker：可用 pytest -m negative 篩選（@allure.tag 只影響報告）
+@pytest.mark.negative
 @allure.tag("negative")
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.parametrize("case", load_invalid_cases(), ids=lambda c: c["test_label"])

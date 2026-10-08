@@ -6,6 +6,8 @@ from selenium.webdriver.common.by import By
 
 @allure.epic("SauceDemo Project")
 @allure.feature("Home Page")
+# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
+@pytest.mark.smoke
 @allure.tag("smoke")
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.story(" homepage loading")
