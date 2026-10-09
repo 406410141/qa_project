@@ -23,6 +23,7 @@ def test_tc008(logged_in_driver):
     assert logged_in_driver.current_url == "https://www.saucedemo.com/cart.html", "Cart Link Redirect Wrong URL"
 
     cart_page = Cart(logged_in_driver)
+    cart_page.wait_text(cart_page.CART_TITLE, "Your Cart")
     assert cart_page.get_text(cart_page.CART_TITLE) == "Your Cart", "Wrong Title"
 
 
