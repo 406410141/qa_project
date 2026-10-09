@@ -68,3 +68,48 @@ def test_tc004(driver):
     except Exception:
         visible = False
     assert visible == False, "Error message still displayed after closing"
+
+
+@allure.epic("SauceDemo Project")
+@allure.feature("Login Info")
+@allure.story("Wrong Password")
+@allure.severity(allure.severity_level.CRITICAL)
+@pytest.mark.regression
+@pytest.mark.negative
+@allure.tag("regression")
+def test_tc016(driver):
+    login = LoginPage(driver)
+    login.login(login.ACCEPTED_USERNAMES, "wrong_password")
+    error_message = login.get_error_message()
+    assert error_message == "Epic sadface: Username and password do not match any user in this service", f"Unexpected error message: {error_message}"
+    assert driver.current_url == login.URL, "Should stay on login page"
+
+
+@allure.epic("SauceDemo Project")
+@allure.feature("Login Info")
+@allure.story("Empty Account")
+@allure.severity(allure.severity_level.CRITICAL)
+@pytest.mark.regression
+@pytest.mark.negative
+@allure.tag("regression")
+def test_tc017(driver):
+    login = LoginPage(driver)
+    login.login("", login.ACCEPTED_PASSWORD)
+    error_message = login.get_error_message()
+    assert error_message == "Epic sadface: Username is required", f"Unexpected error message: {error_message}"
+    assert driver.current_url == login.URL, "Should stay on login page"
+
+
+@allure.epic("SauceDemo Project")
+@allure.feature("Login Info")
+@allure.story("Empty Password")
+@allure.severity(allure.severity_level.CRITICAL)
+@pytest.mark.regression
+@pytest.mark.negative
+@allure.tag("regression")
+def test_tc018(driver):
+    login = LoginPage(driver)
+    login.login(login.ACCEPTED_USERNAMES, "")
+    error_message = login.get_error_message()
+    assert error_message == "Epic sadface: Password is required", f"Unexpected error message: {error_message}"
+    assert driver.current_url == login.URL, "Should stay on login page"
