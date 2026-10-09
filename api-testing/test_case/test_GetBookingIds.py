@@ -7,7 +7,6 @@ from api_requests.base import BaseAPI
 @allure.epic("API Testing Project")
 @allure.feature("API_GetBookingIds")
 @allure.story("Get Booking Ids")
-# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
 @pytest.mark.smoke
 @allure.tag("smoke")
 @allure.severity(allure.severity_level.CRITICAL)
@@ -29,7 +28,6 @@ def test_get_booking_ids(base_url, session):
 @allure.epic("API Testing Project")
 @allure.feature("API_GetBookingIds")
 @allure.story("Get Booking Ids With Name")
-# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
 @pytest.mark.smoke
 @allure.tag("smoke")
 @allure.severity(allure.severity_level.NORMAL)
@@ -56,7 +54,6 @@ def test_get_booking_ids_with_name(base_url, session, created_booking):
 @allure.epic("API Testing Project")
 @allure.feature("API_GetBookingIds")
 @allure.story("Get Booking Ids With Date Range")
-# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
 @pytest.mark.smoke
 @allure.tag("smoke")
 @allure.severity(allure.severity_level.NORMAL)

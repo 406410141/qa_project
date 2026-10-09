@@ -5,7 +5,6 @@ import { allure } from 'allure-playwright';
 
 test.describe('Cart Tests', () => {
 
-    // [新增] tag：可用 npx playwright test --grep @smoke 篩選
     test('test_tc008 - Click Cart Btn', { tag: ['@smoke', '@regression'] }, async ({ inventoryPage, page }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Cart');
@@ -27,7 +26,7 @@ test.describe('Cart Tests', () => {
             page,
             'Cart Link Redirect Wrong URL'
         ).toHaveURL(
-            'https://www.saucedemo.com/cart.html'
+            '/cart.html'
         );
 
         await expect(
@@ -37,7 +36,6 @@ test.describe('Cart Tests', () => {
     });
 
 
-    // [新增] tag：可用 npx playwright test --grep @regression 篩選
     test('test_tc009 - Click CTU BTN', { tag: ['@regression'] }, async ({ inventoryPage, page }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Cart');
@@ -58,7 +56,7 @@ test.describe('Cart Tests', () => {
             page,
             'Cart Link Redirect Wrong URL'
         ).toHaveURL(
-            'https://www.saucedemo.com/cart.html'
+            '/cart.html'
         );
 
         await cartPage.clickContinueShopping();
@@ -67,7 +65,7 @@ test.describe('Cart Tests', () => {
             page,
             "CTU button didn't return to inventory page."
         ).toHaveURL(
-            'https://www.saucedemo.com/inventory.html'
+            '/inventory.html'
         );
     });
 

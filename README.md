@@ -1,5 +1,11 @@
 # QA Automation Portfolio
 
+[![Run API Tests](https://github.com/406410141/qa_project/actions/workflows/api-tests.yml/badge.svg)](https://github.com/406410141/qa_project/actions/workflows/api-tests.yml)
+[![Run UI Tests](https://github.com/406410141/qa_project/actions/workflows/ui_tests.yml/badge.svg)](https://github.com/406410141/qa_project/actions/workflows/ui_tests.yml)
+[![Run UI-Playwright Tests](https://github.com/406410141/qa_project/actions/workflows/playwright.yml/badge.svg)](https://github.com/406410141/qa_project/actions/workflows/playwright.yml)
+
+> **Run API Tests** 的紅燈是刻意保留的，原因見下方的 Known Issues。
+
 這是一個用於練習與展示自動化測試、效能測試與 CI/CD 整合的完整專案，涵蓋 API、UI（Selenium 與 Playwright 雙框架）、效能測試三種層面，並將測試流程整合進 Jenkins 與 GitHub Actions 兩套 CI/CD 系統。
 
 ---
@@ -140,6 +146,40 @@ GitHub Actions 的 **Run API Tests** 目前固定失敗，這是刻意保留的�
 
 ---
 
+## AI-assisted Testing
+
+這個專案使用 [Claude Code](https://claude.com/claude-code) 協助開發，主要用在三個地方：
+
+| 用途 | 做法 |
+|------|------|
+| Code Review | 請 AI 檢查整個專案，列出問題後逐項判斷要不要處理 |
+| 重構 | 抽出共用 fixture、測試資料外部化、合併重複的測試流程 |
+| 除錯分析 | 分析失敗訊息、協助重現不穩定的測試 |
+
+### 原則：AI 的說法要實測過才算數
+
+- 程式修改在合併前，都會在本機執行對應的測試，並把實際結果寫在 PR 說明裡。
+- 不穩定的測試不以「跑一次通過」為準，而是連續執行多次確認。
+- AI 的推論與實際執行結果不一致時，以實際執行結果為準。
+
+### 兩個實際案例
+
+**1. AI 對程式行為的解讀錯誤**
+
+一個「無效 token」的 API 測試一直是通過的。請 AI 解讀時，得到的回答是送出的 Cookie 為 `token=invalid_token_12345_xyz`，寫法沒有問題。實際把請求內容印出來後，送出的卻是：
+
+```
+token={'Cookie': 'token=invalid_token_12345_xyz'}
+```
+
+原因是測試把整個 header dict 傳進了預期為字串的 `token` 參數。伺服器同樣回 403，所以測試會通過，但驗到的不是預期的情境。修正見 [PR #4](https://github.com/406410141/qa_project/pull/4)。
+
+**2. Flaky test 的原因要靠量測，不是靠猜**
+
+Selenium 的結帳測試偶爾失敗，讀到上一頁的標題。一開始的想法是把全域等待時間拉長，實驗結果是連跑 10 次仍失敗 1 次。之後另外寫腳本量測，才確認原因：換頁時網址先更新、標題約晚 10ms 才更新，而新舊頁面共用同一個標題元素，「等元素可見」無法區分新舊。改為等待標題文字更新後，連跑 15 次全數通過。修正見 [PR #7](https://github.com/406410141/qa_project/pull/7)。
+
+---
+
 ## How To Run
 
 ### Python Tests
@@ -199,7 +239,7 @@ node merge_reports.js
 pytest -m smoke
 pytest -m "regression and not smoke"
 
-# Playwright
+# Playwright: @smoke / @regression / @negative
 npx playwright test --grep @smoke
 ```
 

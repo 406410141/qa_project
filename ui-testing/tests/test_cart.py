@@ -7,7 +7,6 @@ from pages.cart_page import Cart
 @allure.epic("SauceDemo Project")
 @allure.feature("Cart")
 @allure.story("Click Cart Btn")
-# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
 @pytest.mark.smoke
 @pytest.mark.regression
 @allure.tag("smoke", "regression")
@@ -16,7 +15,7 @@ from pages.cart_page import Cart
 測試目標：點擊購物車圖標，驗證跳轉到購物車頁面
 預期結果：成功跳轉到購物車頁面，且頁面標題顯示 'Your Cart'
 """)
-def test_tc008(logged_in_driver):
+def test_tc008_open_cart(logged_in_driver):
     inventory_page = Inventory(logged_in_driver)
     inventory_page.click(inventory_page.SHOP_CART)
 
@@ -30,7 +29,6 @@ def test_tc008(logged_in_driver):
 @allure.epic("SauceDemo Project")
 @allure.feature("Cart")
 @allure.story("Click CTU BTN")
-# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
 @allure.severity(allure.severity_level.NORMAL)
@@ -38,7 +36,7 @@ def test_tc008(logged_in_driver):
 測試目標：點擊繼續購物按鈕，驗證返回商品列表頁面
 預期結果：成功返回商品列表頁面 (inventory.html)
 """)
-def test_tc009(logged_in_driver):
+def test_tc009_continue_shopping(logged_in_driver):
     inventory_page = Inventory(logged_in_driver)
     inventory_page.click(inventory_page.SHOP_CART)
 

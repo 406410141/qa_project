@@ -68,6 +68,12 @@ export class InventoryPage extends BasePage {
     await this.shoppingCartLink.click();
   }
 
+  // 按鈕 id 的規則是 add-to-cart-<商品名稱小寫、空白換成 ->
+  async addToCart(productName: string): Promise<void> {
+    const slug = productName.toLowerCase().replace(/ /g, '-');
+    await this.page.locator(`[id="add-to-cart-${slug}"]`).click();
+  }
+
 
   async isSidebarHidden(): Promise<boolean> {
     const status = await this.sidebarContainer.getAttribute('aria-hidden');
