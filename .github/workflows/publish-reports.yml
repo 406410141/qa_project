@@ -1,0 +1,81 @@
+name: Publish Test Reports
+
+# 三個測試 workflow 在 main 上跑完後，把各自最新的報告合併發布到 GitHub Pages
+on:
+  workflow_run:
+    workflows: ["Run API Tests", "Run UI Tests", "Run UI-Playwright Tests"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+    - name: Download latest reports from main
+      env:
+        GH_TOKEN: ${{ github.token }}
+        GH_REPO: ${{ github.repository }}
+      run: |
+        download() {
+          workflow=$1; artifact=$2; dir=$3
+          run_id=$(gh run list --workflow "$workflow" --branch main --status completed --limit 1 --json databaseId --jq '.[0].databaseId')
+          mkdir -p "site/$dir"
+          gh run download "$run_id" --name "$artifact" --dir "site/$dir" \
+            || echo "::warning::$artifact not found in run $run_id of $workflow"
+        }
+        download api-tests.yml api-allure-report api
+        download ui_tests.yml ui-allure-report selenium
+        download playwright.yml playwright-report playwright
+
+    - name: Create index page
+      run: |
+        cat > site/index.html <<'EOF'
+        <!doctype html>
+        <html lang="zh-Hant">
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>QA Automation Portfolio - Test Reports</title>
+          <style>
+            body { font-family: -apple-system, "Segoe UI", sans-serif; max-width: 640px; margin: 48px auto; padding: 0 16px; line-height: 1.6; }
+            li { margin: 12px 0; }
+            small { color: #666; }
+          </style>
+        </head>
+        <body>
+          <h1>Test Reports</h1>
+          <p>main 分支最新一次執行的測試報告。</p>
+          <ul>
+            <li><a href="api/">API Tests</a> <small>pytest + requests, Allure</small></li>
+            <li><a href="selenium/">Selenium UI Tests</a> <small>pytest + Selenium, Allure</small></li>
+            <li><a href="playwright/">Playwright UI Tests</a> <small>Playwright HTML Report</small></li>
+          </ul>
+          <p><a href="https://github.com/406410141/qa_project">GitHub Repository</a></p>
+        </body>
+        </html>
+        EOF
+
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: site
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

@@ -128,6 +128,8 @@ qa_project/
 | **GitHub Actions** | Push / Pull Request | Run API, Selenium UI and Playwright tests |
 | **Jenkins** | Manual Trigger | Run API, Selenium UI, Playwright UI and K6 tests |
 
+測試在 `main` 上執行完成後，`publish-reports.yml` 會把三份報告合併發布到 GitHub Pages。
+
 ---
 
 ## Known Issues（為什麼 API 測試是紅燈）
@@ -228,6 +230,11 @@ npx playwright test --grep @smoke
 ```
 
 ### Reports
+
+main 分支最新一次執行的報告會自動發布到 GitHub Pages：
+
+**https://406410141.github.io/qa_project/**
+
 
 | Report | Description |
 |--------|-------------|
