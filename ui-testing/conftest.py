@@ -5,6 +5,7 @@ import allure
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from pages.login_page import LoginPage
+from test_data import SAUCEDEMO_DATA
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -89,6 +90,7 @@ def driver():
 def logged_in_driver(driver):
     login_page = LoginPage(driver)
     driver.get(login_page.URL)
-    login_page.login("standard_user", "secret_sauce")
+    credentials = SAUCEDEMO_DATA["credentials"]
+    login_page.login(credentials["username"], credentials["password"])
     assert driver.current_url == "https://www.saucedemo.com/inventory.html", "登入失敗"
     return driver

@@ -1,9 +1,11 @@
 import pytest
 import allure
 from pages.inventory import Inventory
+from test_data import SAUCEDEMO_DATA
+
 
 # test_navigation.py
-expected_menu_items = ['All Items', 'About', 'Logout', 'Reset App State']
+expected_menu_items = SAUCEDEMO_DATA["navigation"]["menuItems"]
 
 
 @allure.epic("SauceDemo Project")

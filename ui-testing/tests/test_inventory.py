@@ -1,30 +1,12 @@
 import pytest
 import allure
-
 from pages.inventory import Inventory
+from test_data import SAUCEDEMO_DATA
 
-
-EXPECTED_AZ_LIST = [
-    "Sauce Labs Backpack",
-    "Sauce Labs Bike Light",
-    "Sauce Labs Bolt T-Shirt",
-    "Sauce Labs Fleece Jacket",
-    "Sauce Labs Onesie",
-    "Test.allTheThings() T-Shirt (Red)"
-]
-
-EXPECTED_ZA_LIST = [
-    "Test.allTheThings() T-Shirt (Red)",
-    "Sauce Labs Onesie",
-    "Sauce Labs Fleece Jacket",
-    "Sauce Labs Bolt T-Shirt",
-    "Sauce Labs Bike Light",
-    "Sauce Labs Backpack"
-]
-
-EXPECTED_PRICE_LOHI = [7.99, 9.99, 15.99, 15.99, 29.99, 49.99]
-
-EXPECTED_PRICE_HILO = [49.99, 29.99, 15.99, 15.99, 9.99, 7.99]
+EXPECTED_AZ_LIST = SAUCEDEMO_DATA["sorting"]["az"]
+EXPECTED_ZA_LIST = SAUCEDEMO_DATA["sorting"]["za"]
+EXPECTED_PRICE_LOHI = SAUCEDEMO_DATA["sorting"]["priceLowToHigh"]
+EXPECTED_PRICE_HILO = SAUCEDEMO_DATA["sorting"]["priceHighToLow"]
 
 
 @allure.epic("SauceDemo Project")
@@ -39,8 +21,7 @@ def test_tc011(logged_in_driver):
 
     # Check A->Z
     item_names = inventory.get_all_items_name()
-    sorted_names = sorted(item_names)
-    assert item_names == sorted_names, f"wrong sort: {item_names} Not A->Z "
+    assert item_names == EXPECTED_AZ_LIST, f"wrong sort: {item_names} Not A->Z "
 
     print(f"item list: {item_names}")
 
@@ -58,8 +39,7 @@ def test_tc012(logged_in_driver):
     inventory.click_sort_za()
     # Check Z->A
     item_names = inventory.get_all_items_name()
-    sorted_names = sorted(item_names, reverse=True)
-    assert item_names == sorted_names, f"wrong sort: {item_names} Not Z->A "
+    assert item_names == EXPECTED_ZA_LIST, f"wrong sort: {item_names} Not Z->A "
 
     print(f"item list: {item_names}")
 
