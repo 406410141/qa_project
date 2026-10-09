@@ -44,6 +44,7 @@ def test_tc010(logged_in_driver):
     cart_page.click(cart_page.CHECKOUT)
     assert logged_in_driver.current_url == "https://www.saucedemo.com/checkout-step-one.html", "Checkout link did not navigate to the correct URL"
     CS1 = CheckoutStepOne(logged_in_driver)
+    CS1.wait_text(CS1.CHECKOUT_TITLE, "Checkout: Your Information")
     assert CS1.get_text(CS1.CHECKOUT_TITLE) == "Checkout: Your Information", "Checkout page title not found"
 
     CS1.fill_checkout_info(CUSTOMER["firstName"], CUSTOMER["lastName"], CUSTOMER["postalCode"])
@@ -51,6 +52,7 @@ def test_tc010(logged_in_driver):
     assert logged_in_driver.current_url == "https://www.saucedemo.com/checkout-step-two.html", "Did not navigate to checkout overview page"
 
     CS2 = CheckoutStepTwo(logged_in_driver)
+    CS2.wait_text(CS2.CHECKOUT_TITLE, "Checkout: Overview")
     assert CS2.get_text(CS2.CHECKOUT_TITLE) == "Checkout: Overview", "Checkout overview page title not found"
     checkout_overview_items = CS2.get_checkout_items_detail()
     assert len(

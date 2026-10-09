@@ -37,6 +37,14 @@ class BasePage:
             element.clear()
         element.send_keys(text)
 
+    def wait_text(self, locator, text: str):
+        # 換頁後新舊頁面可能共用同一個 locator（例如 .title），
+        # 所以要等「文字變成預期內容」，只等元素可見會讀到舊頁面的文字
+        self.wait.until(
+            EC.text_to_be_present_in_element(locator, text),
+            message=f"Text '{text}' not shown in {locator}",
+        )
+
     def get_text(self, locator) -> str:
 
         return self.wait_visible(locator).text.strip()
