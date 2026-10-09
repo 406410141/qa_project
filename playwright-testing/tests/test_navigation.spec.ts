@@ -5,7 +5,6 @@ import { allure } from 'allure-playwright';
 
 test.describe('Navigation Bar Tests', () => {
 
-    // [新增] tag：可用 npx playwright test --grep @regression 篩選
     test('test_tc005 - Check Nav Bar Items', { tag: ['@regression'] }, async ({ inventoryPage }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Navigation Bar');
@@ -28,7 +27,6 @@ test.describe('Navigation Bar Tests', () => {
     });
 
 
-    // [新增] tag：可用 npx playwright test --grep @regression 篩選
     test('test_tc006 - Check Nav Bar About', { tag: ['@regression'] }, async ({ inventoryPage, page }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Navigation Bar');
@@ -46,7 +44,6 @@ test.describe('Navigation Bar Tests', () => {
     });
 
 
-    // [新增] tag：可用 npx playwright test --grep @smoke 篩選
     test('test_tc007 - Check Nav Bar Logout', { tag: ['@smoke', '@regression'] }, async ({ inventoryPage, page }) => {
         await allure.epic('SauceDemo Project');
         await allure.feature('Navigation Bar');
@@ -59,7 +56,7 @@ test.describe('Navigation Bar Tests', () => {
         await inventoryPage.logoutLink.click();
 
         await expect(page).toHaveURL(
-            'https://www.saucedemo.com/'
+            '/'
         );
     });
 

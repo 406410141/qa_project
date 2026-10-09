@@ -2,7 +2,7 @@ import { Page, Locator } from '@playwright/test';
 import { BasePage } from './base.page';
 
 export class LoginPage extends BasePage {
-    readonly url = 'https://www.saucedemo.com/';
+    readonly url = '/';
 
     readonly usernameInput: Locator;
     readonly passwordInput: Locator;

@@ -4,7 +4,6 @@ import { allure } from 'allure-playwright';
 
 test.describe(' Smoke Tests ', () => {
 
-    // [新增] tag：可用 npx playwright test --grep @smoke 篩選
     test('test_tc001  @smoke', { tag: ['@smoke'] }, async ({ page }) => {
 
         await allure.epic("SauceDemo Project")
