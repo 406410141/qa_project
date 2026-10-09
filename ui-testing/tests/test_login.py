@@ -1,16 +1,11 @@
 import pytest
 import allure
 from pages.login_page import LoginPage
+from test_data import SAUCEDEMO_DATA
 # test_login.py
 
-EXPECTED_USERS = [
-    "standard_user",
-    "locked_out_user",
-    "problem_user",
-    "performance_glitch_user",
-    "error_user",
-    "visual_user"
-]
+EXPECTED_USERS = SAUCEDEMO_DATA["credentials"]["displayedUsers"]
+EXPECTED_PASSWORD = SAUCEDEMO_DATA["credentials"]["password"]
 
 
 @allure.epic("SauceDemo Project")
@@ -36,7 +31,7 @@ def test_tc002(driver):
     for user in EXPECTED_USERS:
         assert user in users_text, f" No Expected : {user}"
         print(user)
-    assert "secret_sauce" in pwd_text, f"No Expected -> : {pwd_text}"
+    assert EXPECTED_PASSWORD in pwd_text, f"No Expected -> : {pwd_text}"
 
 
 @allure.epic("SauceDemo Project")
