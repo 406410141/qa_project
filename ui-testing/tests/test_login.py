@@ -12,10 +12,9 @@ EXPECTED_PASSWORD = SAUCEDEMO_DATA["credentials"]["password"]
 @allure.feature("Login Info")
 @allure.story("Login Info")
 @allure.severity(allure.severity_level.MINOR)
-# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc002(driver):
+def test_tc002_login_page_shows_accepted_users(driver):
     login_page = LoginPage(driver)
     driver.get(login_page.URL)
     locator = login_page.All_USERNAMES
@@ -38,10 +37,9 @@ def test_tc002(driver):
 @allure.feature("Login Info")
 @allure.story("Close ERROR MSG")
 @allure.severity(allure.severity_level.MINOR)
-# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc003(driver):
+def test_tc003_login_success(driver):
     login_page = LoginPage(driver)
     driver.get(login_page.URL)
 
@@ -53,10 +51,9 @@ def test_tc003(driver):
 @allure.feature("Login Info")
 @allure.story("Close ERROR MSG")
 @allure.severity(allure.severity_level.MINOR)
-# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc004(driver):
+def test_tc004_close_login_error_message(driver):
     login_page = LoginPage(driver)
     driver.get(login_page.URL)
     login_page.click(login_page.LOGIN_BUTTON)
@@ -77,7 +74,7 @@ def test_tc004(driver):
 @pytest.mark.regression
 @pytest.mark.negative
 @allure.tag("regression")
-def test_tc016(driver):
+def test_tc016_login_wrong_password(driver):
     login = LoginPage(driver)
     login.login(login.ACCEPTED_USERNAMES, "wrong_password")
     error_message = login.get_error_message()
@@ -92,7 +89,7 @@ def test_tc016(driver):
 @pytest.mark.regression
 @pytest.mark.negative
 @allure.tag("regression")
-def test_tc017(driver):
+def test_tc017_login_empty_username(driver):
     login = LoginPage(driver)
     login.login("", login.ACCEPTED_PASSWORD)
     error_message = login.get_error_message()
@@ -107,7 +104,7 @@ def test_tc017(driver):
 @pytest.mark.regression
 @pytest.mark.negative
 @allure.tag("regression")
-def test_tc018(driver):
+def test_tc018_login_empty_password(driver):
     login = LoginPage(driver)
     login.login(login.ACCEPTED_USERNAMES, "")
     error_message = login.get_error_message()

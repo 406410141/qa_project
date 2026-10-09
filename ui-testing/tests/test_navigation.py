@@ -12,10 +12,9 @@ expected_menu_items = SAUCEDEMO_DATA["navigation"]["menuItems"]
 @allure.feature("Navigation Bar")
 @allure.story("Check Nav Bar Items")
 @allure.severity(allure.severity_level.NORMAL)
-# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc005(logged_in_driver):
+def test_tc005_sidebar_menu_items(logged_in_driver):
     inventory_page = Inventory(logged_in_driver)
     inventory_page.click(inventory_page.SIDE)
     menu_items = [
@@ -34,10 +33,9 @@ def test_tc005(logged_in_driver):
 @allure.feature("Navigation Bar")
 @allure.story("About")
 @allure.severity(allure.severity_level.NORMAL)
-# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc006(logged_in_driver):
+def test_tc006_sidebar_about_link(logged_in_driver):
     inventory_page = Inventory(logged_in_driver)
     inventory_page.click(inventory_page.SIDE)
     inventory_page.click(inventory_page.ABOUT_LINK)
@@ -48,11 +46,10 @@ def test_tc006(logged_in_driver):
 @allure.feature("Navigation Bar")
 @allure.story("Logout")
 @allure.severity(allure.severity_level.CRITICAL)
-# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
 @pytest.mark.smoke
 @pytest.mark.regression
 @allure.tag("smoke", "regression")
-def test_tc007(logged_in_driver):
+def test_tc007_sidebar_logout(logged_in_driver):
     inventory_page = Inventory(logged_in_driver)
     inventory_page.click(inventory_page.SIDE)
     inventory_page.click(inventory_page.LOGOUT_LINK)

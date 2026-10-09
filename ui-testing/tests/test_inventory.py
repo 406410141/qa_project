@@ -13,10 +13,9 @@ EXPECTED_PRICE_HILO = SAUCEDEMO_DATA["sorting"]["priceHighToLow"]
 @allure.feature("Item Sort")
 @allure.story("A->Z")
 @allure.severity(allure.severity_level.NORMAL)
-# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc011(logged_in_driver):
+def test_tc011_sort_name_a_to_z(logged_in_driver):
     inventory = Inventory(logged_in_driver)
 
     # Check A->Z
@@ -30,10 +29,9 @@ def test_tc011(logged_in_driver):
 @allure.feature("Item Sort")
 @allure.story("Z->A")
 @allure.severity(allure.severity_level.NORMAL)
-# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc012(logged_in_driver):
+def test_tc012_sort_name_z_to_a(logged_in_driver):
     inventory = Inventory(logged_in_driver)
 
     inventory.click_sort_za()
@@ -48,10 +46,9 @@ def test_tc012(logged_in_driver):
 @allure.feature("Item Sort")
 @allure.story("Lo->Hi")
 @allure.severity(allure.severity_level.NORMAL)
-# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc013(logged_in_driver):
+def test_tc013_sort_price_low_to_high(logged_in_driver):
     inventory = Inventory(logged_in_driver)
     inventory.click_sort_lohi()
     item_prices = inventory.get_all_items_price()
@@ -73,10 +70,9 @@ def test_tc013(logged_in_driver):
 @allure.feature("Item Sort")
 @allure.story("Hi->Lo")
 @allure.severity(allure.severity_level.NORMAL)
-# [新增] pytest marker：可用 pytest -m regression 篩選（@allure.tag 只影響報告）
 @pytest.mark.regression
 @allure.tag("regression")
-def test_tc014(logged_in_driver):
+def test_tc014_sort_price_high_to_low(logged_in_driver):
     inventory = Inventory(logged_in_driver)
     inventory.click_sort_hilo()
 

@@ -15,11 +15,10 @@ CUSTOMER = CHECKOUT["customer"]
 @allure.feature("Checkout")
 @allure.story("Single Item Checkout")
 @allure.severity(allure.severity_level.CRITICAL)
-# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
 @pytest.mark.smoke
 @pytest.mark.regression
 @allure.tag("smoke", "regression")
-def test_tc010(logged_in_driver):
+def test_tc010_single_item_checkout(logged_in_driver):
     inventory = Inventory(logged_in_driver)
     inventory.click(inventory.ADD_ITEM_BACKPACK)
     assert logged_in_driver.find_element(*inventory.SHOP_CART).text == '1', "Cart count is not 1 after adding item"
@@ -85,11 +84,10 @@ def test_tc010(logged_in_driver):
 @allure.feature("Checkout")
 @allure.story("Multiple Item Checkout")
 @allure.severity(allure.severity_level.NORMAL)
-# [新增] pytest marker：可用 pytest -m smoke 篩選（@allure.tag 只影響報告）
 @pytest.mark.smoke
 @pytest.mark.regression
 @allure.tag("smoke", "regression")
-def test_tc015(logged_in_driver):
+def test_tc015_multiple_item_checkout(logged_in_driver):
     inventory = Inventory(logged_in_driver)
     inventory.click(inventory.ADD_ITEM_BACKPACK)
     inventory.click(inventory.ADD_ITEM_ONESIE)
