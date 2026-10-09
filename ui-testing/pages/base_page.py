@@ -1,6 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 
 class BasePage:
@@ -45,6 +45,13 @@ class BasePage:
             message=f"Text '{text}' not shown in {locator}",
         )
 
+    def wait_url(self, url: str):
+        # 點擊後頁面跳轉需要時間，所以等網址變成預期值，逾時才算失敗
+        try:
+            self.wait.until(EC.url_to_be(url))
+        except TimeoutException:
+            raise AssertionError(f"Expected URL {url}, got {self.driver.current_url}") from None
+
     def get_text(self, locator) -> str:
 
         return self.wait_visible(locator).text.strip()
@@ -63,5 +70,5 @@ class BasePage:
         try:
             element = self.driver.find_element(*locator)
             return not element.is_displayed()
-        except:
+        except NoSuchElementException:
             return True

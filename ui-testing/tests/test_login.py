@@ -44,7 +44,7 @@ def test_tc003_login_success(driver):
     driver.get(login_page.URL)
 
     login_page.login(login_page.ACCEPTED_USERNAMES, login_page.ACCEPTED_PASSWORD)
-    assert driver.current_url == "https://www.saucedemo.com/inventory.html", "Login failed or URL mismatch"
+    login_page.wait_url("https://www.saucedemo.com/inventory.html")
 
 
 @allure.epic("SauceDemo Project")
@@ -58,13 +58,9 @@ def test_tc004_close_login_error_message(driver):
     driver.get(login_page.URL)
     login_page.click(login_page.LOGIN_BUTTON)
 
-    assert login_page.find_element(login_page.ERROR_REMIND).is_displayed(), "Error message not displayed"
+    assert login_page.find_element(login_page.ERROR_CONTAINER).is_displayed(), "Error message not displayed"
     login_page.click(login_page.CLOSE_REMIND)
-    try:
-        visible = login_page.find_element(login_page.ERROR_REMIND).is_displayed()
-    except Exception:
-        visible = False
-    assert visible == False, "Error message still displayed after closing"
+    login_page.wait_invisible(login_page.ERROR_CONTAINER)
 
 
 @allure.epic("SauceDemo Project")

@@ -80,7 +80,6 @@ def driver():
 
     if not is_ci:
         driver.maximize_window()
-    driver.implicitly_wait(10)
 
     yield driver
     driver.quit()
@@ -92,5 +91,5 @@ def logged_in_driver(driver):
     driver.get(login_page.URL)
     credentials = SAUCEDEMO_DATA["credentials"]
     login_page.login(credentials["username"], credentials["password"])
-    assert driver.current_url == "https://www.saucedemo.com/inventory.html", "登入失敗"
+    login_page.wait_url("https://www.saucedemo.com/inventory.html")
     return driver
