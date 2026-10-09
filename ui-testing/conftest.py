@@ -1,4 +1,5 @@
 import os
+import platform
 import pytest
 import json
 import allure
@@ -8,27 +9,35 @@ from pages.login_page import LoginPage
 from test_data import SAUCEDEMO_DATA
 
 
+def _run_context():
+    """依環境變數判斷測試是在哪裡執行的，供 Allure 報告顯示"""
+    if os.getenv("GITHUB_ACTIONS") == "true":
+        return {"name": "GitHub Actions", "type": "github", "build": os.getenv("GITHUB_RUN_NUMBER", "")}
+    if os.getenv("JENKINS_URL"):
+        return {"name": "Jenkins", "type": "jenkins", "build": os.getenv("BUILD_NUMBER", "")}
+    return {"name": "Local", "type": "local", "build": "local"}
+
+
 @pytest.fixture(scope="session", autouse=True)
 def create_allure_environment_info(request):
     yield
     allure_dir = request.config.getoption("--alluredir")
     if allure_dir and os.path.exists(allure_dir):
         env_properties_path = os.path.join(allure_dir, "environment.properties")
-        is_ci = os.getenv("CI") == "true"
         with open(env_properties_path, "w") as f:
             f.write("Browser=Chrome\n")
-            f.write(f"Environment={'CI_Pipeline' if is_ci else 'Staging'}\n")
-            f.write(f"Platform={'GitHub_Actions' if is_ci else 'macOS'}\n")
+            f.write(f"Executor={_run_context()['name']}\n")
+            f.write(f"Platform={platform.system()}\n")
 
 
 def pytest_sessionfinish(session, exitstatus):
     results_dir = session.config.getoption('--alluredir')
     if results_dir and os.path.exists(results_dir):
-        is_ci = os.getenv("CI") == "true"
+        context = _run_context()
         executor_info = {
-            "name": "GitHub_Actions_Runner" if is_ci else "Tung-MacBookPro",
-            "type": "github" if is_ci else "manual",
-            "buildName": os.getenv("GITHUB_RUN_NUMBER", "Daily-Check-2026"),
+            "name": context["name"],
+            "type": context["type"],
+            "buildName": context["build"],
             "reportName": "UI-Automation-Suite"
         }
         with open(os.path.join(results_dir, 'executor.json'), 'w') as f:
