@@ -44,6 +44,7 @@ jobs:
       with:
         name: api-allure-report
         path: api-testing/allure-report
+        retention-days: 7
 
     - name: Upload Allure Results (for debugging)
       if: failure()
@@ -51,3 +52,4 @@ jobs:
       with:
         name: api-allure-results
         path: api-testing/allure-results
+        retention-days: 7

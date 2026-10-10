@@ -8,6 +8,24 @@
 
 這是一個用於練習與展示自動化測試、效能測試與 CI/CD 整合的完整專案，涵蓋 API、UI（Selenium 與 Playwright 雙框架）、效能測試三種層面，並將測試流程整合進 Jenkins 與 GitHub Actions 兩套 CI/CD 系統。
 
+## 專案特點
+
+- **同一組 UI 測試案例以 Selenium 與 Playwright 各實作一次**，共用同一份測試資料 `test-data/saucedemo.json`
+- **Page Object Model**：頁面元素與操作集中在 `pages/`，測試只描述流程與預期結果
+- **標籤篩選**：`smoke`、`regression`、`negative`，可只執行部分測試
+- **CI/CD**：GitHub Actions 於 Push / Pull Request 自動執行，另有 Jenkins Pipeline
+- **測試報告自動發布**：https://406410141.github.io/qa_project/
+- **已知缺陷與不穩定測試皆有紀錄**：見下方 Known Issues 與 [PR #7](https://github.com/406410141/qa_project/pull/7)
+
+## 測試範圍
+
+| Suite | 測試對象 | 測試數 | 涵蓋內容 |
+|-------|---------|-------|---------|
+| API | [restful-booker](https://restful-booker.herokuapp.com) | 20 | 認證、訂單的新增／查詢／更新／部分更新／刪除、不合法輸入 |
+| Selenium UI | [SauceDemo](https://www.saucedemo.com) | 18 | 登入（含負向）、側邊選單、購物車、商品排序、單一與多商品結帳 |
+| Playwright UI | SauceDemo | 18（Chromium 與 Firefox 各執行一次） | 同 Selenium |
+| K6 | restful-booker | 3 支腳本 | Baseline、Stress、Spike |
+
 ---
 
 ## Tech Stack
@@ -106,11 +124,15 @@ qa_project/
 ├── test-data/
 │   └── saucedemo.json              # Selenium 與 Playwright 共用測試資料
 │
-├── .github/workflows/              # GitHub Actions CI
-│   ├── api-tests.yml
-│   ├── ui_tests.yml
-│   └── playwright.yml
+├── .github/
+│   ├── pull_request_template.md    # PR 說明範本
+│   └── workflows/                  # GitHub Actions CI
+│       ├── api-tests.yml
+│       ├── ui_tests.yml
+│       ├── playwright.yml
+│       └── publish-reports.yml     # 將測試報告發布到 GitHub Pages
 │
+├── .gitmessage                     # Commit 訊息範本
 ├── Jenkinsfile                     # Jenkins Pipeline
 ├── pytest.ini
 ├── requirements.txt
@@ -128,7 +150,7 @@ qa_project/
 | **GitHub Actions** | Push / Pull Request | Run API, Selenium UI and Playwright tests |
 | **Jenkins** | Manual Trigger | Run API, Selenium UI, Playwright UI and K6 tests |
 
-測試在 `main` 上執行完成後，`publish-reports.yml` 會把三份報告合併發布到 GitHub Pages。
+測試在 `main` 上執行完成後，`publish-reports.yml` 會把各套測試的報告合併發布到 GitHub Pages。
 
 ---
 
@@ -236,8 +258,12 @@ main 分支最新一次執行的報告會自動發布到 GitHub Pages：
 **https://406410141.github.io/qa_project/**
 
 
-| Report | Description |
-|--------|-------------|
-| **Allure Report** | API, Selenium UI and Playwright test results |
-| **Playwright HTML Report** | Playwright test results with screenshots, videos and traces |
-| **K6 HTML Report** | Baseline, Spike and Stress test results |
+| Report | 內容 | 網址 |
+|--------|------|------|
+| **Allure Report** | API 測試結果 | [/api/](https://406410141.github.io/qa_project/api/) |
+| **Allure Report** | Selenium UI 測試結果 | [/selenium/](https://406410141.github.io/qa_project/selenium/) |
+| **Allure Report** | Playwright UI 測試結果 | [/playwright/](https://406410141.github.io/qa_project/playwright/) |
+| **Playwright HTML Report** | Playwright 測試結果，失敗時附截圖、錄影與 trace | [/playwright-html/](https://406410141.github.io/qa_project/playwright-html/) |
+| **K6 HTML Report** | Baseline、Stress、Spike 的結果。K6 不在 GitHub Actions 中執行，此為先前手動執行後存入 repo 的報告 | [/k6/](https://406410141.github.io/qa_project/k6/) |
+
+CI 產生的報告檔（artifact）保留 7 天後由 GitHub 自動刪除；報告網站只保留最新一次的結果。
