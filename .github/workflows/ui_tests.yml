@@ -43,3 +43,4 @@ jobs:
       with:
         name: ui-allure-report
         path: ui-testing/allure-report
+        retention-days: 7

@@ -27,6 +27,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
     - name: Download latest reports from main
       env:
         GH_TOKEN: ${{ github.token }}
@@ -41,7 +44,14 @@ jobs:
         }
         download api-tests.yml api-allure-report api
         download ui_tests.yml ui-allure-report selenium
-        download playwright.yml playwright-report playwright
+        download playwright.yml playwright-allure-report playwright
+        download playwright.yml playwright-report playwright-html
+
+    - name: Copy K6 reports
+      run: |
+        mkdir -p site/k6
+        cp performance-testing/index.html site/k6/
+        cp -r performance-testing/report_data site/k6/
 
     - name: Create index page
       run: |
@@ -60,11 +70,13 @@ jobs:
         </head>
         <body>
           <h1>Test Reports</h1>
-          <p>main 分支最新一次執行的測試報告。</p>
+          <p>main 分支最新一次執行的測試報告。K6 報告除外，它不在 CI 中執行。</p>
           <ul>
             <li><a href="api/">API Tests</a> <small>pytest + requests, Allure</small></li>
             <li><a href="selenium/">Selenium UI Tests</a> <small>pytest + Selenium, Allure</small></li>
-            <li><a href="playwright/">Playwright UI Tests</a> <small>Playwright HTML Report</small></li>
+            <li><a href="playwright/">Playwright UI Tests</a> <small>Playwright, Allure</small></li>
+            <li><a href="playwright-html/">Playwright UI Tests</a> <small>Playwright HTML Report（含失敗時的截圖與 trace）</small></li>
+            <li><a href="k6/">K6 Performance Tests</a> <small>Baseline / Stress / Spike，為先前手動執行的結果</small></li>
           </ul>
           <p><a href="https://github.com/406410141/qa_project">GitHub Repository</a></p>
         </body>
