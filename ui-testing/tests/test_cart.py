@@ -19,7 +19,7 @@ def test_tc008_open_cart(logged_in_driver):
     inventory_page = Inventory(logged_in_driver)
     inventory_page.click(inventory_page.SHOP_CART)
 
-    assert logged_in_driver.current_url == "https://www.saucedemo.com/cart.html", "Cart Link Redirect Wrong URL"
+    inventory_page.wait_url("https://www.saucedemo.com/cart.html")
 
     cart_page = Cart(logged_in_driver)
     cart_page.wait_text(cart_page.CART_TITLE, "Your Cart")
@@ -40,9 +40,9 @@ def test_tc009_continue_shopping(logged_in_driver):
     inventory_page = Inventory(logged_in_driver)
     inventory_page.click(inventory_page.SHOP_CART)
 
-    assert logged_in_driver.current_url == "https://www.saucedemo.com/cart.html", "Cart Link Redirect Wrong URL"
+    inventory_page.wait_url("https://www.saucedemo.com/cart.html")
 
     cart_page = Cart(logged_in_driver)
     cart_page.click(cart_page.CONTINUE_SHOP)
 
-    assert logged_in_driver.current_url == "https://www.saucedemo.com/inventory.html", "CTU button did't return to inventory page."
+    cart_page.wait_url("https://www.saucedemo.com/inventory.html")

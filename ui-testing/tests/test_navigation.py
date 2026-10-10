@@ -16,7 +16,7 @@ expected_menu_items = SAUCEDEMO_DATA["navigation"]["menuItems"]
 @allure.tag("regression")
 def test_tc005_sidebar_menu_items(logged_in_driver):
     inventory_page = Inventory(logged_in_driver)
-    inventory_page.click(inventory_page.SIDE)
+    inventory_page.open_side_menu()
     menu_items = [
         inventory_page.get_text(inventory_page.ALL_ITEMS_LINK),
         inventory_page.get_text(inventory_page.ABOUT_LINK),
@@ -37,9 +37,9 @@ def test_tc005_sidebar_menu_items(logged_in_driver):
 @allure.tag("regression")
 def test_tc006_sidebar_about_link(logged_in_driver):
     inventory_page = Inventory(logged_in_driver)
-    inventory_page.click(inventory_page.SIDE)
+    inventory_page.open_side_menu()
     inventory_page.click(inventory_page.ABOUT_LINK)
-    assert logged_in_driver.current_url == "https://saucelabs.com/", "About link did not navigate to the correct URL"
+    inventory_page.wait_url("https://saucelabs.com/")
 
 
 @allure.epic("SauceDemo Project")
@@ -51,6 +51,6 @@ def test_tc006_sidebar_about_link(logged_in_driver):
 @allure.tag("smoke", "regression")
 def test_tc007_sidebar_logout(logged_in_driver):
     inventory_page = Inventory(logged_in_driver)
-    inventory_page.click(inventory_page.SIDE)
+    inventory_page.open_side_menu()
     inventory_page.click(inventory_page.LOGOUT_LINK)
-    assert logged_in_driver.current_url == "https://www.saucedemo.com/", "Logout link did not navigate to the correct URL"
+    inventory_page.wait_url("https://www.saucedemo.com/")
